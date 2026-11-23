@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ABDULLAH MODZ SHOP — Premium Panel Store</title>
+  <title>ABDULLAH MODZ SHOP — Digital Panel Store</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -24,100 +24,163 @@
   </script>
   <style>
     body {
-      background-color: #060913;
+      background-color: #050811;
       color: #f1f5f9;
       background-image:
-        radial-gradient(circle at 20% 10%, rgba(16, 185, 129, 0.12), transparent 35%),
-        radial-gradient(circle at 80% 18%, rgba(139, 92, 246, 0.12), transparent 38%),
-        radial-gradient(circle at 50% 85%, rgba(6, 182, 212, 0.08), transparent 45%);
+        radial-gradient(circle at 18% 12%, rgba(16, 185, 129, 0.14), transparent 36%),
+        radial-gradient(circle at 82% 16%, rgba(139, 92, 246, 0.14), transparent 38%),
+        radial-gradient(circle at 50% 88%, rgba(6, 182, 212, 0.08), transparent 45%);
       min-height: 100vh;
     }
-    .store-card {
-      background: linear-gradient(180deg, rgba(15, 23, 42, 0.95) 0%, rgba(8, 13, 26, 0.98) 100%);
+    .panel-box {
+      background: linear-gradient(180deg, rgba(15, 23, 42, 0.96) 0%, rgba(7, 11, 22, 0.99) 100%);
       border: 1px solid rgba(148, 163, 184, 0.14);
       transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
     }
-    .store-card:hover {
+    .panel-box:hover {
       transform: translateY(-3px);
       border-color: rgba(16, 185, 129, 0.55);
-      box-shadow: 0 10px 25px rgba(16, 185, 129, 0.12);
+      box-shadow: 0 12px 24px rgba(16, 185, 129, 0.14);
     }
-    .buy-btn {
+    .neon-buy {
       background: linear-gradient(90deg, #10b981 0%, #059669 100%);
-      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.28);
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
     }
-    .buy-btn:hover {
+    .neon-buy:hover {
       filter: brightness(1.08);
     }
   </style>
 </head>
 <body class="antialiased selection:bg-emerald-500/30 selection:text-emerald-200 pb-20">
 
-  <!-- Top Status Bar -->
-  <div class="bg-emerald-500/10 border-b border-emerald-500/20 text-center py-1.5 px-3 text-[11px] font-semibold text-emerald-300 tracking-wide">
-    <i class="fa-solid fa-bolt mr-1"></i> WELCOME TO ABDULLAH MODZ SHOP • INSTANT SUPPORT @itzabdullah_82
+  <!-- Gateway Preloader (psworld style) -->
+  <div id="gatewayLoader" class="fixed inset-0 z-50 bg-[#050811] flex flex-col items-center justify-center px-6 text-center transition-opacity duration-300">
+    <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-400 via-cyan-400 to-violet-600 p-[2px] mb-3">
+      <div class="w-full h-full rounded-[14px] bg-[#080d1a] flex items-center justify-center font-display font-bold text-2xl text-emerald-300">
+        AM
+      </div>
+    </div>
+    <h2 class="font-display font-bold text-2xl tracking-wider text-white">ABDULLAH MODZ SHOP</h2>
+    <p class="text-[11px] tracking-[0.2em] text-slate-400 uppercase mt-0.5">THE ULTIMATE PANEL GATEWAY</p>
+
+    <div class="w-full max-w-xs mt-5">
+      <div class="flex justify-between text-[11px] text-emerald-300 font-semibold mb-1.5">
+        <span id="loaderStatus">CONNECTING TO SERVER...</span>
+        <span id="loaderPercent">0%</span>
+      </div>
+      <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+        <div id="loaderBar" class="h-full w-0 bg-gradient-to-r from-emerald-400 to-cyan-400 transition-all duration-150"></div>
+      </div>
+      <div class="flex items-center justify-center gap-3 text-[10px] text-slate-400 mt-3">
+        <span><i class="fa-solid fa-shield-halved text-emerald-400 mr-1"></i>SECURE</span>
+        <span>•</span>
+        <span><i class="fa-solid fa-bolt text-cyan-400 mr-1"></i>FAST DELIVERY</span>
+        <span>•</span>
+        <span><i class="fa-solid fa-headset text-violet-400 mr-1"></i>@itzabdullah_82</span>
+      </div>
+    </div>
   </div>
 
-  <!-- Navbar -->
-  <header class="sticky top-0 z-40 backdrop-blur-xl bg-[#060913]/85 border-b border-slate-800/90">
-    <div class="max-w-5xl mx-auto px-3.5 py-3 flex items-center justify-between gap-2">
+  <!-- Announcement Modal (psworld style) -->
+  <div id="announceModal" class="fixed inset-0 z-40 hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4">
+    <div class="w-full max-w-sm rounded-2xl bg-[#0b1020] border border-slate-700/80 p-4 shadow-2xl">
+      <div class="flex items-center justify-between mb-3">
+        <span class="px-2.5 py-0.5 rounded-md bg-emerald-500/15 text-emerald-300 text-[11px] font-bold">
+          ● ALL PANEL UPDATE
+        </span>
+        <button onclick="closeAnnounce()" class="w-7 h-7 rounded-lg bg-slate-800 text-slate-300 flex items-center justify-center">
+          <i class="fa-solid fa-xmark text-xs"></i>
+        </button>
+      </div>
+
+      <div class="relative aspect-video w-full rounded-xl overflow-hidden border border-slate-800 bg-slate-950 mb-3">
+        <img src="240.webp" alt="Panel Update" onerror="this.style.display='none'" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-3">
+          <p class="font-display font-bold text-lg text-white leading-tight">
+            ALL PANELS ACTIVE • bKash &amp; Nagad Instant Order
+          </p>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <button onclick="closeAnnounce()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-bold text-xs flex items-center justify-center gap-1.5">
+          <i class="fa-solid fa-bolt"></i>
+          <span>VIEW PANELS &amp; OFFERS</span>
+        </button>
+        <button onclick="closeAnnounce()" class="w-full py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 font-semibold text-xs">
+          DISMISS ANNOUNCEMENT
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Strip -->
+  <div class="bg-emerald-500/10 border-b border-emerald-500/20 py-1.5 px-3 text-center text-[11px] font-semibold text-emerald-300">
+    <i class="fa-solid fa-sparkles mr-1"></i> WELCOME TO ABDULLAH MODZ SHOP • SUPPORT @itzabdullah_82
+  </div>
+
+  <!-- Main Header -->
+  <header class="sticky top-0 z-30 backdrop-blur-xl bg-[#050811]/90 border-b border-slate-800/90">
+    <div class="max-w-5xl mx-auto px-3.5 py-2.5 flex items-center justify-between gap-2">
       <div class="flex items-center gap-2.5">
-        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-emerald-400 via-cyan-400 to-violet-500 p-[1.5px]">
-          <div class="w-full h-full rounded-[7px] bg-[#090e1a] flex items-center justify-center font-display font-bold text-base text-emerald-300">
+        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-emerald-400 via-cyan-400 to-violet-600 p-[1.5px]">
+          <div class="w-full h-full rounded-[7px] bg-[#080d1a] flex items-center justify-center font-display font-bold text-base text-emerald-300">
             AM
           </div>
         </div>
         <div>
-          <h1 class="font-display font-bold text-lg sm:text-xl tracking-wide text-white leading-none">
+          <h1 class="font-display font-bold text-lg sm:text-xl text-white leading-none tracking-wide">
             ABDULLAH MODZ
           </h1>
-          <p class="text-[10px] text-slate-400 mt-0.5">bKash &amp; Nagad Verified Store</p>
+          <span class="text-[10px] text-slate-400">Digital Panel Store</span>
         </div>
       </div>
 
-      <a href="https://t.me/itzabdullah_82" target="_blank" rel="noopener noreferrer"
-         class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-400/35 text-emerald-300 text-xs font-bold transition">
-        <i class="fa-brands fa-telegram text-sm"></i>
-        <span>@itzabdullah_82</span>
-      </a>
+      <div class="flex items-center gap-2">
+        <a href="https://t.me/itzabdullah_82" target="_blank" rel="noopener noreferrer"
+           class="px-2.5 py-1.5 rounded-lg bg-emerald-500/15 border border-emerald-400/35 text-emerald-300 text-xs font-bold flex items-center gap-1">
+          <i class="fa-brands fa-telegram"></i>
+          <span>@itzabdullah_82</span>
+        </a>
+        <button onclick="openPaymentDrawer()" class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 text-slate-200 flex items-center justify-center">
+          <i class="fa-solid fa-wallet text-xs text-emerald-400"></i>
+        </button>
+      </div>
     </div>
   </header>
 
-  <main class="max-w-5xl mx-auto px-3.5 pt-4 space-y-4">
+  <main class="max-w-5xl mx-auto px-3.5 pt-3.5 space-y-3.5">
 
-    <!-- Notice Pill -->
-    <div class="rounded-xl bg-slate-900/90 border border-slate-800 px-3.5 py-2.5 flex items-center gap-2.5 text-xs">
-      <span class="px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 font-bold text-[10px] shrink-0">
+    <!-- Notice Board Bar -->
+    <div class="rounded-xl bg-slate-900/90 border border-slate-800 px-3 py-2 flex items-center gap-2 text-xs">
+      <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold text-[10px] shrink-0">
         ● NOTICE BOARD
       </span>
-      <p class="text-slate-300 truncate">
-        Payment via bKash <strong class="text-pink-300">01326048602</strong> or Nagad <strong class="text-amber-300">01302858682</strong> • Support <strong class="text-cyan-300">@itzabdullah_82</strong>
-      </p>
+      <marquee behavior="scroll" direction="left" scrollamount="4" class="text-slate-200 text-xs">
+        bKash: 01326048602 • Nagad: 01302858682 • Send Money &amp; contact @itzabdullah_82 for instant key &amp; panel setup!
+      </marquee>
     </div>
 
     <!-- Hero Banner -->
-    <section class="rounded-2xl border border-emerald-500/25 bg-gradient-to-r from-[#0d1b2a] via-[#141733] to-[#0b2027] p-4 sm:p-6">
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <section class="rounded-2xl border border-emerald-500/25 bg-gradient-to-r from-[#0b192c] via-[#141534] to-[#081d26] p-4 sm:p-5">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <span class="inline-block px-2.5 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 text-[11px] font-bold tracking-wider">
-            PREMIUM GAMING PANELS
+          <span class="inline-block px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-bold uppercase tracking-wider">
+            INSTANT KEY &amp; PANEL DELIVERY
           </span>
-          <h2 class="font-display font-bold text-2xl sm:text-3xl text-white mt-1.5 tracking-wide">
-            ALL PANELS &amp; MODS CATALOG
+          <h2 class="font-display font-bold text-2xl sm:text-3xl text-white mt-1 leading-tight">
+            ALL PANELS &amp; MODS STORE
           </h2>
-          <p class="text-xs sm:text-sm text-slate-300 mt-1">
-            Tap any panel card or <span class="text-emerald-300 font-semibold">BUY INSTANTLY</span> to choose duration and order via Telegram.
+          <p class="text-xs text-slate-300 mt-1">
+            Select any panel below, pick duration, copy bKash/Nagad number, and order directly via <span class="text-cyan-300 font-semibold">@itzabdullah_82</span>.
           </p>
         </div>
-
         <div class="flex flex-wrap gap-2 shrink-0">
-          <button onclick="copyText('01326048602', 'bKash')"
-                  class="px-3 py-2 rounded-xl bg-pink-500/15 hover:bg-pink-500/25 border border-pink-500/40 text-pink-200 text-xs font-semibold flex items-center gap-1.5 transition">
+          <button onclick="copyNum('01326048602', 'bKash')" class="px-3 py-2 rounded-xl bg-pink-500/15 border border-pink-500/40 text-pink-200 text-xs font-bold flex items-center gap-1.5">
             <span>bKash: 01326048602</span>
             <i class="fa-regular fa-copy"></i>
           </button>
-          <button onclick="copyText('01302858682', 'Nagad')"
-                  class="px-3 py-2 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 text-amber-200 text-xs font-semibold flex items-center gap-1.5 transition">
+          <button onclick="copyNum('01302858682', 'Nagad')" class="px-3 py-2 rounded-xl bg-amber-500/15 border border-amber-500/40 text-amber-200 text-xs font-bold flex items-center gap-1.5">
             <span>Nagad: 01302858682</span>
             <i class="fa-regular fa-copy"></i>
           </button>
@@ -127,117 +190,155 @@
 
     <!-- Filter Tabs & Search -->
     <section class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
-      <div class="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0" id="filterTabs">
-        <button data-filter="ALL" onclick="setFilter('ALL')" class="filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-500 text-slate-950 whitespace-nowrap">
+      <div class="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0">
+        <button data-tab="ALL" onclick="setTab('ALL')" class="tab-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-500 text-slate-950 whitespace-nowrap">
           ALL PRODUCTS
         </button>
-        <button data-filter="NON_ROOT" onclick="setFilter('NON_ROOT')" class="filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-slate-300 border border-slate-800 whitespace-nowrap">
+        <button data-tab="NON_ROOT" onclick="setTab('NON_ROOT')" class="tab-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-slate-300 border border-slate-800 whitespace-nowrap">
           NON ROOT
         </button>
-        <button data-filter="ROOT" onclick="setFilter('ROOT')" class="filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-slate-300 border border-slate-800 whitespace-nowrap">
+        <button data-tab="ROOT" onclick="setTab('ROOT')" class="tab-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-slate-300 border border-slate-800 whitespace-nowrap">
           ROOT PANEL
         </button>
       </div>
 
-      <div class="relative sm:w-60">
+      <div class="relative sm:w-56">
         <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-        <input id="searchBox" type="text" oninput="renderStore()" placeholder="Search panel..."
+        <input id="searchInput" type="text" oninput="renderGrid()" placeholder="Search panel..."
                class="w-full pl-8 pr-3 py-2 rounded-xl bg-slate-900 border border-slate-800 focus:border-emerald-400/60 focus:outline-none text-xs text-white placeholder-slate-400" />
       </div>
     </section>
 
-    <!-- 2-Column Store Grid (Video Style) -->
-    <section id="productGrid" class="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4"></section>
+    <!-- 2-Column Products Grid -->
+    <section id="panelsContainer" class="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4"></section>
 
-    <!-- Payment & Support Box -->
-    <section class="grid grid-cols-1 md:grid-cols-2 gap-3.5 pt-2">
-      <div class="store-card rounded-2xl p-4">
-        <h3 class="font-display font-bold text-lg text-white flex items-center gap-2">
-          <i class="fa-solid fa-wallet text-emerald-400"></i> PAYMENT METHODS
-        </h3>
-        <div class="mt-3 space-y-2.5 text-xs">
-          <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-900/90 border border-slate-800">
-            <div>
-              <span class="text-pink-300 font-bold block">bKash Personal</span>
-              <span class="font-mono text-sm font-bold text-white">01326048602</span>
-            </div>
-            <button onclick="copyText('01326048602', 'bKash')" class="px-3 py-1.5 rounded-lg bg-pink-500/20 text-pink-200 font-semibold">Copy</button>
-          </div>
-          <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-900/90 border border-slate-800">
-            <div>
-              <span class="text-amber-300 font-bold block">Nagad Personal</span>
-              <span class="font-mono text-sm font-bold text-white">01302858682</span>
-            </div>
-            <button onclick="copyText('01302858682', 'Nagad')" class="px-3 py-1.5 rounded-lg bg-amber-500/20 text-amber-200 font-semibold">Copy</button>
-          </div>
-        </div>
+    <!-- Latest Sales Ticker Section (psworld style) -->
+    <section class="pt-2 space-y-2.5">
+      <div class="flex items-center justify-between">
+        <span class="px-2.5 py-1 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-[11px] font-bold">
+          ● LIVE STORE ACTIVITY
+        </span>
+        <span class="text-[11px] text-slate-400">Support: @itzabdullah_82</span>
       </div>
+      <h3 class="font-display font-bold text-xl text-white">
+        LATEST SALES TICKER &amp; PAYMENT INFO
+      </h3>
 
-      <div class="store-card rounded-2xl p-4 flex flex-col justify-between">
-        <div>
-          <h3 class="font-display font-bold text-lg text-white flex items-center gap-2">
-            <i class="fa-brands fa-telegram text-cyan-400"></i> SUPPORT &amp; DELIVERY
-          </h3>
-          <p class="text-xs text-slate-300 mt-2">
-            After sending bKash or Nagad payment, send screenshot or TrxID directly to our official Telegram support.
-          </p>
-          <div class="mt-3 p-2.5 rounded-xl bg-cyan-500/10 border border-cyan-400/25 text-xs">
-            <span class="text-cyan-200">Official Support:</span>
-            <strong class="text-white ml-1">@itzabdullah_82</strong>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="panel-box rounded-2xl p-3.5 space-y-2.5 text-xs">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <span class="font-bold text-white"><i class="fa-solid fa-fire text-emerald-400 mr-1"></i> RECENT ORDERS</span>
+            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[10px] font-bold">VERIFIED</span>
+          </div>
+          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-900/90 border border-slate-800">
+            <div>
+              <p class="font-bold text-white">Rafiul_BD <span class="text-cyan-400">✦</span></p>
+              <p class="text-[11px] text-slate-400">DRIP CLIENT ROOT (7 Days)</p>
+            </div>
+            <span class="font-bold text-emerald-400">৳700</span>
+          </div>
+          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-900/90 border border-slate-800">
+            <div>
+              <p class="font-bold text-white">Nabil_FF <span class="text-cyan-400">✦</span></p>
+              <p class="text-[11px] text-slate-400">DELTA MOD (1 Day)</p>
+            </div>
+            <span class="font-bold text-emerald-400">৳220</span>
+          </div>
+          <div class="flex items-center justify-between p-2 rounded-xl bg-slate-900/90 border border-slate-800">
+            <div>
+              <p class="font-bold text-white">Tanjim_09 <span class="text-cyan-400">✦</span></p>
+              <p class="text-[11px] text-slate-400">HEX BLADE VPN (15 Days)</p>
+            </div>
+            <span class="font-bold text-emerald-400">৳850</span>
           </div>
         </div>
-        <a href="https://t.me/itzabdullah_82" target="_blank" rel="noopener noreferrer"
-           class="mt-3 w-full py-2.5 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-slate-950 font-bold text-xs flex items-center justify-center gap-1.5">
-          <i class="fa-brands fa-telegram text-sm"></i>
-          <span>Chat with @itzabdullah_82</span>
-        </a>
+
+        <div class="panel-box rounded-2xl p-3.5 flex flex-col justify-between">
+          <div>
+            <p class="font-bold text-sm text-white flex items-center gap-1.5">
+              <i class="fa-solid fa-money-bill-transfer text-emerald-400"></i> bKash &amp; Nagad Direct Payment
+            </p>
+            <p class="text-[11px] text-slate-400 mt-1">
+              Send Money to either number below and message <strong class="text-cyan-300">@itzabdullah_82</strong> with TrxID.
+            </p>
+            <div class="mt-3 space-y-2 text-xs">
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+                <div>
+                  <span class="text-pink-300 font-bold text-[11px] block">bKash Personal</span>
+                  <span class="font-mono font-bold text-white">01326048602</span>
+                </div>
+                <button onclick="copyNum('01326048602', 'bKash')" class="px-3 py-1 rounded-lg bg-pink-500/20 text-pink-200 font-semibold">Copy</button>
+              </div>
+              <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+                <div>
+                  <span class="text-amber-300 font-bold text-[11px] block">Nagad Personal</span>
+                  <span class="font-mono font-bold text-white">01302858682</span>
+                </div>
+                <button onclick="copyNum('01302858682', 'Nagad')" class="px-3 py-1 rounded-lg bg-amber-500/20 text-amber-200 font-semibold">Copy</button>
+              </div>
+            </div>
+          </div>
+
+          <a href="https://t.me/itzabdullah_82" target="_blank" rel="noopener noreferrer"
+             class="mt-3 w-full py-2.5 rounded-xl bg-gradient-to-r from-cyan-400 to-emerald-400 text-slate-950 font-extrabold text-xs flex items-center justify-center gap-1.5">
+            <i class="fa-brands fa-telegram text-sm"></i>
+            <span>ORDER / SUPPORT @itzabdullah_82</span>
+          </a>
+        </div>
       </div>
     </section>
 
   </main>
 
-  <!-- Product Detail & Duration Modal -->
-  <div id="detailModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm p-3">
-    <div class="w-full max-w-md rounded-2xl bg-[#0b1120] border border-slate-700/80 overflow-hidden shadow-2xl max-h-[90vh] overflow-y-auto">
+  <!-- Product Price & Top Payment Modal -->
+  <div id="productModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 backdrop-blur-sm p-3">
+    <div class="w-full max-w-md rounded-2xl bg-[#0a101f] border border-slate-700/80 overflow-hidden shadow-2xl max-h-[92vh] overflow-y-auto">
+      <!-- Top Payment Banner inside Modal (Always visible when buying) -->
+      <div class="bg-gradient-to-r from-pink-500/15 via-slate-900 to-amber-500/15 border-b border-slate-800 px-3.5 py-2.5 flex items-center justify-between gap-2 text-[11px]">
+        <div class="space-y-0.5">
+          <div><span class="text-pink-300 font-bold">bKash:</span> <button onclick="copyNum('01326048602', 'bKash')" class="font-mono font-bold text-white underline">01326048602</button></div>
+          <div><span class="text-amber-300 font-bold">Nagad:</span> <button onclick="copyNum('01302858682', 'Nagad')" class="font-mono font-bold text-white underline">01302858682</button></div>
+        </div>
+        <div class="text-right">
+          <span class="text-[10px] text-slate-400 block">Support</span>
+          <span class="font-bold text-cyan-300">@itzabdullah_82</span>
+        </div>
+      </div>
+
+      <!-- Panel Image -->
       <div class="relative aspect-video w-full bg-slate-950 border-b border-slate-800">
-        <img id="modalImg" src="" alt="" onerror="this.style.display='none'; document.getElementById('modalFallback').style.display='flex';" class="w-full h-full object-cover" />
-        <div id="modalFallback" class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-emerald-600 to-indigo-700 font-display font-bold text-2xl text-white px-4 text-center"></div>
-        <button onclick="closeDetailModal()" class="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-black/75 text-white flex items-center justify-center border border-white/15">
+        <img id="pModalImg" src="" alt="" onerror="this.style.display='none'; document.getElementById('pModalFallback').style.display='flex';" class="w-full h-full object-cover" />
+        <div id="pModalFallback" class="hidden w-full h-full items-center justify-center bg-gradient-to-br from-emerald-600 to-indigo-700 font-display font-bold text-2xl text-white px-4 text-center"></div>
+        <button onclick="closeProductModal()" class="absolute top-2.5 right-2.5 w-8 h-8 rounded-full bg-black/75 text-white flex items-center justify-center border border-white/15">
           <i class="fa-solid fa-xmark text-sm"></i>
         </button>
       </div>
 
+      <!-- Panel Info, Duration & Buy Button -->
       <div class="p-4 space-y-3.5">
         <div>
-          <span id="modalBadge" class="inline-block px-2.5 py-0.5 rounded-md bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold uppercase"></span>
-          <h3 id="modalTitle" class="font-display font-bold text-2xl text-white mt-1 leading-tight"></h3>
-          <p id="modalSubtitle" class="text-xs text-slate-400"></p>
+          <span id="pModalBadge" class="inline-block px-2.5 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold uppercase"></span>
+          <h3 id="pModalName" class="font-display font-bold text-2xl text-white mt-1 leading-tight"></h3>
+          <p id="pModalSub" class="text-xs text-slate-400"></p>
         </div>
 
         <div>
           <p class="text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-2">
-            <i class="fa-regular fa-calendar-check text-emerald-400 mr-1"></i> Select Duration Plan
+            <i class="fa-regular fa-clock text-emerald-400 mr-1"></i> DAY DURATION SYSTEM
           </p>
-          <div id="modalPlans" class="grid grid-cols-2 gap-2"></div>
+          <div id="pModalDurations" class="grid grid-cols-2 gap-2"></div>
         </div>
 
-        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 text-xs space-y-1.5">
-          <div class="flex justify-between">
-            <span class="text-slate-400">bKash:</span>
-            <button onclick="copyText('01326048602', 'bKash')" class="font-mono text-pink-300 font-bold">01326048602 <i class="fa-regular fa-copy ml-1"></i></button>
+        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+          <div>
+            <span class="text-[10px] text-slate-400 uppercase block">TOTAL PRICE</span>
+            <span id="pModalTotal" class="text-xl font-extrabold text-emerald-400"></span>
           </div>
-          <div class="flex justify-between">
-            <span class="text-slate-400">Nagad:</span>
-            <button onclick="copyText('01302858682', 'Nagad')" class="font-mono text-amber-300 font-bold">01302858682 <i class="fa-regular fa-copy ml-1"></i></button>
-          </div>
-          <div class="flex justify-between items-center pt-1 border-t border-slate-800">
-            <span class="text-slate-400">TOTAL PRICE</span>
-            <span id="modalTotal" class="text-lg font-extrabold text-emerald-400"></span>
-          </div>
+          <span class="text-[11px] text-slate-300">bKash / Nagad</span>
         </div>
 
-        <a id="modalBuyLink" target="_blank" rel="noopener noreferrer"
-           class="buy-btn w-full py-3 rounded-xl text-slate-950 font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2">
+        <a id="pModalOrderBtn" target="_blank" rel="noopener noreferrer"
+           class="neon-buy w-full py-3 rounded-xl text-slate-950 font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2">
           <i class="fa-solid fa-bolt"></i>
           <span>BUY INSTANTLY (@itzabdullah_82)</span>
         </a>
@@ -245,26 +346,26 @@
     </div>
   </div>
 
-  <!-- Floating Telegram Support Button -->
+  <!-- Floating Telegram Button (psworld style) -->
   <a href="https://t.me/itzabdullah_82" target="_blank" rel="noopener noreferrer"
-     class="fixed bottom-4 right-4 z-40 px-3.5 py-2.5 rounded-full bg-emerald-500 text-slate-950 font-bold text-xs shadow-xl flex items-center gap-1.5">
+     class="fixed bottom-4 right-4 z-30 px-3.5 py-2.5 rounded-full bg-emerald-500 text-slate-950 font-bold text-xs shadow-xl flex items-center gap-1.5">
     <i class="fa-brands fa-telegram text-base"></i>
     <span>Support</span>
   </a>
 
   <!-- Toast -->
-  <div id="toastMsg" class="fixed bottom-16 right-4 z-50 hidden px-3.5 py-2 rounded-xl bg-emerald-400 text-slate-950 font-bold text-xs shadow-lg"></div>
+  <div id="toastBox" class="fixed bottom-16 right-4 z-50 hidden px-3.5 py-2 rounded-xl bg-emerald-400 text-slate-950 font-bold text-xs shadow-lg"></div>
     <script>
-    const products = [
+    const panelsData = [
       {
         id: 'drip-client-root',
         name: 'DRIP CLIENT ROOT',
         subtitle: 'Root • Full Main ID Safe',
         image: '240.webp',
-        type: 'ROOT',
+        category: 'ROOT',
         badge: 'ROOT PANEL',
         gradient: 'from-purple-600 to-fuchsia-600',
-        plans: [
+        durations: [
           { label: '1 Day', price: 250 },
           { label: '7 Days', price: 700 },
           { label: '15 Days', price: 1150 },
@@ -276,10 +377,10 @@
         name: 'VYRTX WIRE',
         subtitle: 'Android & iOS Wire Panel',
         image: '241.webp',
-        type: 'NON_ROOT',
+        category: 'NON_ROOT',
         badge: 'NON ROOT',
         gradient: 'from-red-600 to-rose-700',
-        plans: [
+        durations: [
           { label: '1 Day', price: 200 },
           { label: '7 Days', price: 600 },
           { label: '15 Days', price: 950 },
@@ -291,10 +392,10 @@
         name: 'LEGEND WIRE',
         subtitle: 'Android & iOS Wire Panel',
         image: '242.webp',
-        type: 'NON_ROOT',
+        category: 'NON_ROOT',
         badge: 'NON ROOT',
         gradient: 'from-cyan-500 to-blue-700',
-        plans: [
+        durations: [
           { label: '1 Day', price: 200 },
           { label: '7 Days', price: 600 },
           { label: '15 Days', price: 950 },
@@ -306,10 +407,10 @@
         name: 'GHOST MOD',
         subtitle: 'Stealth Mod Panel',
         image: '243.webp',
-        type: 'NON_ROOT',
+        category: 'NON_ROOT',
         badge: 'NON ROOT',
         gradient: 'from-violet-600 to-purple-800',
-        plans: [
+        durations: [
           { label: '1 Day', price: 180 },
           { label: '7 Days', price: 550 },
           { label: '15 Days', price: 900 },
@@ -321,10 +422,10 @@
         name: 'DELTA MOD',
         subtitle: 'Aimbot & ESP Panel',
         image: '246.webp',
-        type: 'NON_ROOT',
+        category: 'NON_ROOT',
         badge: 'NON ROOT',
         gradient: 'from-sky-500 to-indigo-700',
-        plans: [
+        durations: [
           { label: '1 Day', price: 220 },
           { label: '7 Days', price: 650 },
           { label: '15 Days', price: 1050 },
@@ -336,10 +437,10 @@
         name: 'MYTH VPN PANEL',
         subtitle: 'Works via VPN & Proxy',
         image: '245.webp',
-        type: 'NON_ROOT',
+        category: 'NON_ROOT',
         badge: 'VPN PANEL',
         gradient: 'from-red-600 to-orange-600',
-        plans: [
+        durations: [
           { label: '1 Day', price: 150 },
           { label: '7 Days', price: 450 },
           { label: '15 Days', price: 750 },
@@ -351,10 +452,10 @@
         name: 'REZZX MODS',
         subtitle: 'Non Root • VPN & Proxy',
         image: '244.webp',
-        type: 'NON_ROOT',
+        category: 'NON_ROOT',
         badge: 'NON ROOT',
         gradient: 'from-rose-600 to-red-800',
-        plans: [
+        durations: [
           { label: '1 Day', price: 160 },
           { label: '7 Days', price: 480 },
           { label: '15 Days', price: 800 },
@@ -366,10 +467,10 @@
         name: 'HEX BLADE VPN',
         subtitle: 'OB55 Ready • No Root Required',
         image: '247.webp',
-        type: 'NON_ROOT',
+        category: 'NON_ROOT',
         badge: 'NO ROOT',
         gradient: 'from-blue-600 to-cyan-500',
-        plans: [
+        durations: [
           { label: '1 Day', price: 170 },
           { label: '7 Days', price: 500 },
           { label: '15 Days', price: 850 },
@@ -381,10 +482,10 @@
         name: 'ANGRY MOD KERNEL',
         subtitle: 'OBB 55 • Kernel Root Access',
         image: '248.webp',
-        type: 'ROOT',
+        category: 'ROOT',
         badge: 'ROOT PANEL',
         gradient: 'from-purple-700 to-pink-600',
-        plans: [
+        durations: [
           { label: '1 Day', price: 280 },
           { label: '7 Days', price: 780 },
           { label: '15 Days', price: 1250 },
@@ -396,10 +497,10 @@
         name: 'UNSEEN MODS ROOT',
         subtitle: 'Root Panel • High Performance',
         image: '249.webp',
-        type: 'ROOT',
+        category: 'ROOT',
         badge: 'ROOT PANEL',
         gradient: 'from-red-600 to-purple-700',
-        plans: [
+        durations: [
           { label: '1 Day', price: 260 },
           { label: '7 Days', price: 720 },
           { label: '15 Days', price: 1180 },
@@ -408,65 +509,104 @@
       },
     ];
 
-    let activeFilter = 'ALL';
-    let currentProduct = null;
-    let currentPlanIdx = 0;
+    let activeTab = 'ALL';
+    let selectedItem = null;
+    let selectedDurationIdx = 0;
 
-    function fmtTaka(num) {
-      return '৳' + num.toLocaleString('en-US');
+    function taka(amount) {
+      return '৳' + amount.toLocaleString('en-US');
     }
 
-    function showToast(text) {
-      const el = document.getElementById('toastMsg');
-      el.textContent = text;
-      el.classList.remove('hidden');
-      clearTimeout(window.toastTimer);
-      window.toastTimer = setTimeout(() => el.classList.add('hidden'), 2200);
+    function notify(msg) {
+      const box = document.getElementById('toastBox');
+      box.textContent = msg;
+      box.classList.remove('hidden');
+      clearTimeout(window.notifyTimer);
+      window.notifyTimer = setTimeout(() => box.classList.add('hidden'), 2200);
     }
 
-    function copyText(val, label) {
-      navigator.clipboard?.writeText(val);
-      showToast(`${label} copied: ${val}`);
+    function copyNum(num, label) {
+      navigator.clipboard?.writeText(num);
+      notify(`${label} copied: ${num}`);
     }
 
-    function setFilter(filter) {
-      activeFilter = filter;
-      document.querySelectorAll('.filter-btn').forEach((btn) => {
-        const isActive = btn.dataset.filter === filter;
-        btn.className = isActive
-          ? 'filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-500 text-slate-950 whitespace-nowrap'
-          : 'filter-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-slate-300 border border-slate-800 whitespace-nowrap';
+    function openPaymentDrawer() {
+      notify('bKash: 01326048602 | Nagad: 01302858682');
+    }
+
+    function closeAnnounce() {
+      const m = document.getElementById('announceModal');
+      m.classList.add('hidden');
+      m.classList.remove('flex');
+    }
+
+    function runLoader() {
+      const bar = document.getElementById('loaderBar');
+      const pct = document.getElementById('loaderPercent');
+      const status = document.getElementById('loaderStatus');
+      const loader = document.getElementById('gatewayLoader');
+      let p = 0;
+
+      const timer = setInterval(() => {
+        p += 20;
+        if (p > 100) p = 100;
+        bar.style.width = p + '%';
+        pct.textContent = p + '%';
+        if (p === 40) status.textContent = 'LOADING PANELS...';
+        if (p === 80) status.textContent = 'SYNCING bKash & Nagad...';
+        if (p >= 100) {
+          clearInterval(timer);
+          setTimeout(() => {
+            loader.classList.add('opacity-0');
+            setTimeout(() => {
+              loader.style.display = 'none';
+              const ann = document.getElementById('announceModal');
+              ann.classList.remove('hidden');
+              ann.classList.add('flex');
+            }, 220);
+          }, 180);
+        }
+      }, 110);
+    }
+
+    function setTab(tab) {
+      activeTab = tab;
+      document.querySelectorAll('.tab-btn').forEach((btn) => {
+        const active = btn.dataset.tab === tab;
+        btn.className = active
+          ? 'tab-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-500 text-slate-950 whitespace-nowrap'
+          : 'tab-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-slate-300 border border-slate-800 whitespace-nowrap';
       });
-      renderStore();
+      renderGrid();
     }
 
-    function renderStore() {
-      const q = document.getElementById('searchBox').value.trim().toLowerCase();
-      const grid = document.getElementById('productGrid');
+    function renderGrid() {
+      const q = document.getElementById('searchInput').value.trim().toLowerCase();
+      const container = document.getElementById('panelsContainer');
 
-      const list = products.filter((item) => {
-        const matchType = activeFilter === 'ALL' || item.type === activeFilter;
-        const matchText = item.name.toLowerCase().includes(q) || item.subtitle.toLowerCase().includes(q);
-        return matchType && matchText;
+      const items = panelsData.filter((item) => {
+        const catOk = activeTab === 'ALL' || item.category === activeTab;
+        const txtOk = item.name.toLowerCase().includes(q) || item.subtitle.toLowerCase().includes(q);
+        return catOk && txtOk;
       });
 
-      if (!list.length) {
-        grid.innerHTML = `<div class="col-span-full text-center py-10 text-slate-400 text-xs">No panel found.</div>`;
+      if (!items.length) {
+        container.innerHTML = `<div class="col-span-full text-center py-10 text-slate-400 text-xs">No panel found.</div>`;
         return;
       }
 
-      grid.innerHTML = list.map((item) => {
-        const startPrice = fmtTaka(item.plans[0].price);
+      container.innerHTML = items.map((item) => {
+        const start = taka(item.durations[0].price);
         return `
-          <article onclick="openProduct('${item.id}')" class="store-card rounded-2xl overflow-hidden flex flex-col cursor-pointer">
+          <article onclick="openPanel('${item.id}')" class="panel-box rounded-2xl overflow-hidden flex flex-col cursor-pointer">
             <div class="relative aspect-video w-full bg-slate-950 overflow-hidden border-b border-slate-800/80">
               <img src="${item.image}" alt="${item.name}"
                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                    class="w-full h-full object-cover" />
-              <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br ${item.gradient} text-white font-display font-bold text-lg sm:text-xl px-2 text-center">
+              <div class="hidden w-full h-full items-center justify-center bg-gradient-to-br ${item.gradient} text-white font-display font-bold text-lg px-2 text-center">
                 ${item.name}
               </div>
-              <span class="absolute top-2 left-2 px-2 py-0.5 rounded-md bg-black/75 text-[10px] font-bold text-emerald-300 border border-white/10">
+              <span class="absolute top-2 left-2 px-2 py-0.5 rounded bg-black/75 text-[10px] font-bold text-emerald-300 border border-white/10">
                 ${item.badge}
               </span>
             </div>
@@ -479,11 +619,11 @@
                 <p class="text-[11px] text-slate-400 truncate mt-0.5">${item.subtitle}</p>
               </div>
 
-              <div class="mt-3 pt-2.5 border-t border-slate-800/80">
+              <div class="mt-3 pt-2 border-t border-slate-800/80">
                 <div class="text-[10px] text-slate-400">Starting at</div>
-                <div class="text-sm sm:text-base font-extrabold text-white">${startPrice}</div>
-                <button type="button" onclick="event.stopPropagation(); openProduct('${item.id}');"
-                        class="buy-btn mt-2 w-full py-2 rounded-lg text-slate-950 font-extrabold text-[11px] sm:text-xs flex items-center justify-center gap-1">
+                <div class="text-sm sm:text-base font-extrabold text-white">${start}</div>
+                <button type="button" onclick="event.stopPropagation(); openPanel('${item.id}');"
+                        class="neon-buy mt-2 w-full py-2 rounded-lg text-slate-950 font-extrabold text-[11px] sm:text-xs flex items-center justify-center gap-1">
                   <i class="fa-solid fa-bolt"></i>
                   <span>BUY INSTANTLY</span>
                 </button>
@@ -494,75 +634,76 @@
       }).join('');
     }
 
-    function openProduct(id) {
-      currentProduct = products.find((p) => p.id === id);
-      if (!currentProduct) return;
-      currentPlanIdx = 0;
+    function openPanel(id) {
+      selectedItem = panelsData.find((p) => p.id === id);
+      if (!selectedItem) return;
+      selectedDurationIdx = 0;
 
-      const imgEl = document.getElementById('modalImg');
-      const fbEl = document.getElementById('modalFallback');
-      imgEl.style.display = 'block';
-      fbEl.style.display = 'none';
-      imgEl.src = currentProduct.image;
-      imgEl.alt = currentProduct.name;
-      fbEl.textContent = currentProduct.name;
+      const img = document.getElementById('pModalImg');
+      const fb = document.getElementById('pModalFallback');
+      img.style.display = 'block';
+      fb.style.display = 'none';
+      img.src = selectedItem.image;
+      img.alt = selectedItem.name;
+      fb.textContent = selectedItem.name;
 
-      document.getElementById('modalBadge').textContent = currentProduct.badge;
-      document.getElementById('modalTitle').textContent = currentProduct.name;
-      document.getElementById('modalSubtitle').textContent = currentProduct.subtitle;
+      document.getElementById('pModalBadge').textContent = selectedItem.badge;
+      document.getElementById('pModalName').textContent = selectedItem.name;
+      document.getElementById('pModalSub').textContent = selectedItem.subtitle;
 
-      renderModalPlans();
-      updateBuyButton();
+      renderDurations();
+      syncOrderBtn();
 
-      const modal = document.getElementById('detailModal');
+      const modal = document.getElementById('productModal');
       modal.classList.remove('hidden');
       modal.classList.add('flex');
     }
 
-    function renderModalPlans() {
-      const box = document.getElementById('modalPlans');
-      box.innerHTML = currentProduct.plans.map((pl, idx) => {
-        const active = idx === currentPlanIdx;
+    function renderDurations() {
+      const wrap = document.getElementById('pModalDurations');
+      wrap.innerHTML = selectedItem.durations.map((d, i) => {
+        const active = i === selectedDurationIdx;
         return `
-          <button type="button" onclick="pickPlan(${idx})"
+          <button type="button" onclick="chooseDuration(${i})"
                   class="p-2.5 rounded-xl border text-left transition ${
                     active
                       ? 'bg-emerald-500/15 border-emerald-400 text-white'
                       : 'bg-slate-900 border-slate-800 text-slate-300'
                   }">
-            <div class="text-xs font-bold">${pl.label}</div>
-            <div class="text-xs font-extrabold text-emerald-400 mt-0.5">${fmtTaka(pl.price)}</div>
+            <div class="text-xs font-bold">${d.label}</div>
+            <div class="text-xs font-extrabold text-emerald-400 mt-0.5">${taka(d.price)}</div>
           </button>
         `;
       }).join('');
     }
 
-    function pickPlan(idx) {
-      currentPlanIdx = idx;
-      renderModalPlans();
-      updateBuyButton();
+    function chooseDuration(i) {
+      selectedDurationIdx = i;
+      renderDurations();
+      syncOrderBtn();
     }
 
-    function updateBuyButton() {
-      const plan = currentProduct.plans[currentPlanIdx];
-      const formatted = fmtTaka(plan.price);
-      document.getElementById('modalTotal').textContent = formatted;
+    function syncOrderBtn() {
+      const chosen = selectedItem.durations[selectedDurationIdx];
+      const totalStr = taka(chosen.price);
+      document.getElementById('pModalTotal').textContent = totalStr;
 
-      const msg = `Hello @itzabdullah_82, I want to buy:\n• Panel: ${currentProduct.name}\n• Duration: ${plan.label}\n• Price: ${formatted}\n• Payment: bKash (01326048602) / Nagad (01302858682)`;
-      document.getElementById('modalBuyLink').href = `https://t.me/itzabdullah_82?text=${encodeURIComponent(msg)}`;
+      const msg = `Hello @itzabdullah_82, I want to buy:\n• Panel: ${selectedItem.name}\n• Duration: ${chosen.label}\n• Price: ${totalStr}\n• Payment: bKash (01326048602) / Nagad (01302858682)`;
+      document.getElementById('pModalOrderBtn').href = `https://t.me/itzabdullah_82?text=${encodeURIComponent(msg)}`;
     }
 
-    function closeDetailModal() {
-      const modal = document.getElementById('detailModal');
+    function closeProductModal() {
+      const modal = document.getElementById('productModal');
       modal.classList.add('hidden');
       modal.classList.remove('flex');
     }
 
-    document.getElementById('detailModal').addEventListener('click', (e) => {
-      if (e.target.id === 'detailModal') closeDetailModal();
+    document.getElementById('productModal').addEventListener('click', (e) => {
+      if (e.target.id === 'productModal') closeProductModal();
     });
 
-    renderStore();
+    renderGrid();
+    runLoader();
   </script>
 </body>
 </html>

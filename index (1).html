@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS WORLD — Ultimate Digital Gaming & Software Gateway</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Rajdhani for Gaming Aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Rajdhani:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        gaming: ['Rajdhani', 'sans-serif'],
+                    },
+                    colors: {
+                        nexus: {
+                            bg: '#060b14',
+                            card: '#0b1220',
+                            surface: '#111a2e',
+                            emerald: '#00e676',
+                            emeraldDark: '#10b981',
+                            purple: '#7c3aed',
+                            border: '#1e293b',
+                        }
+                    },
+                    animation: {
+                        'marquee': 'marquee 25s linear infinite',
+                        'pulse-glow': 'pulseGlow 2.5s infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 15px rgba(0, 230, 118, 0.25)' },
+                            '50%': { boxShadow: '0 0 28px rgba(0, 230, 118, 0.55)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-4px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar & Gaming Surface Utilities */
+        body {
+            background-color: #060b14;
+            color: #f8fafc;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* Subtle Grid Background Pattern */
+        .bg-cyber-grid {
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(124, 58, 237, 0.08) 0%, transparent 45%),
+                linear-gradient(to right, rgba(30, 41, 59, 0.25) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(30, 41, 59, 0.25) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
+        }
+
+        /* Hide scrollbars cleanly for horizontal pill containers */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Glowing Card Hover */
+        .product-card {
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .product-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(0, 230, 118, 0.45);
+            box-shadow: 0 10px 25px -5px rgba(0, 230, 118, 0.12);
+        }
+
+        /* Custom Modal Backdrop Blur */
+        .glass-modal {
+            background: rgba(11, 18, 32, 0.94);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+    </style>
+</head>
+<body class="bg-cyber-grid min-h-screen flex flex-col justify-between selection:bg-nexus-emerald selection:text-nexus-bg">
+
+    <!-- =====================================================================
+         1. SPLASH / PRELOADER SCREEN
+    ====================================================================== -->
+    <div id="splash-screen" class="fixed inset-0 z-[100] bg-[#040810] flex flex-col items-center justify-center p-6 transition-opacity duration-500">
+        <!-- Radial Emerald Glow Behind Logo -->
+        <div class="relative flex flex-col items-center max-w-sm w-full text-center">
+            <div class="w-36 h-36 rounded-full bg-nexus-emerald/10 blur-2xl absolute -top-4"></div>
+            
+            <!-- Animated Brand Emblem -->
+            <div class="relative w-20 h-20 rounded-2xl bg-gradient-to-br from-[#0f1c2e] to-[#080e1a] border border-nexus-emerald/40 flex items-center justify-center shadow-[0_0_30px_rgba(0,230,118,0.25)] mb-6">
+                <span class="font-gaming font-extrabold text-3xl tracking-tighter bg-gradient-to-r from-white via-nexus-emerald to-emerald-300 bg-clip-text text-transparent">NW</span>
+                <span class="absolute -bottom-1.5 px-2 py-0.5 text-[9px] font-bold tracking-widest bg-nexus-emerald text-black rounded-full uppercase">STORE</span>
+            </div>
+
+            <!-- Title & Tagline -->
+            <h1 class="font-gaming text-3xl sm:text-4xl font-extrabold tracking-wider text-white mb-1">
+                NEXUS <span class="text-nexus-emerald">WORLD</span>
+            </h1>
+            <p class="text-[11px] font-semibold tracking-[0.22em] text-slate-400 uppercase mb-8">
+                THE ULTIMATE DIGITAL GATEWAY
+            </p>
+
+            <!-- Status Text & Percentage -->
+            <div class="w-full flex items-center justify-between text-[11px] font-bold tracking-wider mb-2">
+                <span id="splash-status" class="text-nexus-emerald uppercase">CONNECTING TO NEXUS NETWORK...</span>
+                <span id="splash-percent" class="text-nexus-emerald font-mono">0%</span>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="w-full h-1.5 bg-slate-800/90 rounded-full overflow-hidden p-[1px] border border-slate-700/50 mb-8">
+                <div id="splash-bar" class="h-full w-0 bg-gradient-to-r from-emerald-500 via-nexus-emerald to-teal-300 rounded-full transition-all duration-150 shadow-[0_0_12px_#00e676]"></div>
+            </div>
+
+            <!-- Security Badges -->
+            <div class="flex flex-wrap items-center justify-center gap-3 text-[10px] font-bold tracking-wider text-slate-400">
+                <span class="flex items-center gap-1.5">
+                    <i class="fa-solid fa-shield-halved text-nexus-emerald"></i> SECURE SSL
+                </span>
+                <span class="text-slate-700">•</span>
+                <span class="flex items-center gap-1.5">
+                    <i class="fa-solid fa-bolt text-nexus-emerald"></i> FAST SYNC
+                </span>
+                <span class="text-slate-700">•</span>
+                <span class="flex items-center gap-1.5">
+                    <i class="fa-solid fa-circle-check text-nexus-emerald"></i> 100% VERIFIED
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================================================
+         2. ANNOUNCEMENT POPUP MODAL
+    ====================================================================== -->
+    <div id="announcement-modal" class="fixed inset-0 z-[90] bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="relative w-full max-w-md bg-[#0b1220] border border-slate-700/80 rounded-3xl p-5 shadow-[0_0_50px_rgba(124,58,237,0.25)] animate-fade-in">
+            <!-- Close X Button -->
+            <button onclick="closeAnnouncement()" aria-label="Close Announcement" class="absolute top-3.5 right-3.5 z-10 w-8 h-8 rounded-full bg-slate-900/90 border border-slate-700 text-slate-300 hover:text-white hover:border-nexus-emerald flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+
+            <!-- Promotional Graphic Banner -->
+            <div class="relative w-full h-44 rounded-2xl overflow-hidden border border-emerald-500/30 mb-5 bg-gradient-to-br from-emerald-950 via-[#0d192b] to-purple-950 flex flex-col items-center justify-center text-center p-4">
+                <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#00e676_1px,transparent_1px)] [background-size:14px_14px]"></div>
+                <span class="px-2.5 py-0.5 rounded-full bg-nexus-emerald/20 border border-nexus-emerald/40 text-nexus-emerald text-[10px] font-extrabold tracking-widest uppercase mb-2">
+                    NEW SEASON UPDATE
+                </span>
+                <h3 class="font-gaming text-2xl sm:text-3xl font-extrabold text-white leading-tight drop-shadow">
+                    সকল ডিজিটাল প্যানেল ও গিফট কার্ড আপডেট পেতে
+                </h3>
+                <p class="mt-1.5 px-3 py-1 rounded-lg bg-amber-400 text-black font-extrabold text-xs tracking-wide shadow">
+                    ⚡ অফিসিয়াল চ্যানেলে জয়েন করুন
+                </p>
+            </div>
+
+            <!-- Modal Body Text & Buttons -->
+            <div class="text-center">
+                <h2 class="font-gaming text-2xl font-extrabold tracking-wide text-white uppercase mb-4">
+                    ALL STORE UPDATE
+                </h2>
+
+                <div class="space-y-2.5">
+                    <button onclick="handleViewOffer()" class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white font-bold text-xs tracking-wider uppercase shadow-[0_4px_20px_rgba(124,58,237,0.45)] flex items-center justify-center gap-2 transition active:scale-[0.98]">
+                        <i class="fa-solid fa-bolt text-amber-300"></i> VIEW OFFER DETAILS
+                    </button>
+                    <button onclick="closeAnnouncement()" class="w-full py-3 px-4 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 text-slate-300 font-bold text-xs tracking-wider uppercase transition active:scale-[0.98]">
+                        DISMISS ANNOUNCEMENT
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================================================
+         3. TOP STICKY NAVIGATION & NOTICE TICKER
+    ====================================================================== -->
+    <header class="sticky top-0 z-40 bg-[#060b14]/90 backdrop-blur-md border-b border-slate-800/80">
+        <!-- Top Micro Welcome Bar -->
+        <div class="bg-[#091220] border-b border-slate-800/60 py-1 px-4 text-center">
+            <p class="text-[10px] font-bold tracking-widest text-nexus-emerald uppercase flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-bolt"></i> WELCOME TO NEXUS WORLD — INSTANT AUTO DELIVERY 24/7
+            </p>
+        </div>
+
+        <!-- Main Header Bar -->
+        <div class="max-w-5xl mx-auto px-4 h-14 flex items-center justify-between">
+            <!-- Left: Brand Logo -->
+            <a href="#" onclick="resetView(event)" class="flex items-center gap-2.5 group">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500/20 to-purple-600/20 border border-nexus-emerald/40 flex items-center justify-center group-hover:border-nexus-emerald transition">
+                    <span class="font-gaming font-extrabold text-lg text-nexus-emerald">NW</span>
+                </div>
+                <div class="leading-none">
+                    <span class="font-gaming font-extrabold text-lg tracking-wider text-white block">NEXUS</span>
+                    <span class="text-[9px] font-bold tracking-[0.2em] text-slate-400 uppercase">WORLD</span>
+                </div>
+            </a>
+
+            <!-- Right: User Account Status + Hamburger Menu -->
+            <div class="flex items-center gap-2.5">
+                <button id="header-auth-btn" onclick="openAuthModal()" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-xs font-bold text-slate-200 flex items-center gap-2 transition">
+                    <i class="fa-regular fa-user text-nexus-emerald"></i>
+                    <span id="header-user-label">Log In</span>
+                </button>
+
+                <button onclick="toggleDrawer()" aria-label="Menu" class="w-9 h-9 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700/80 flex items-center justify-center text-slate-200 transition">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Marquee Notice Ticker -->
+        <div class="max-w-5xl mx-auto px-4 py-2">
+            <div class="bg-[#0b1322] border border-slate-800/90 rounded-full px-3 py-1.5 flex items-center gap-2.5 overflow-hidden">
+                <span class="shrink-0 px-2.5 py-0.5 rounded-full bg-nexus-emerald/15 border border-nexus-emerald/30 text-nexus-emerald text-[10px] font-extrabold tracking-wider uppercase flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-nexus-emerald animate-ping"></span>
+                    NOTICE BOARD
+                </span>
+                <div class="relative flex-1 overflow-hidden whitespace-nowrap">
+                    <div class="inline-block animate-marquee text-xs font-medium text-slate-300">
+                        আমাদের ওয়েবসাইটে ২৪ ঘণ্টা অটোমেটিক ডেলিভারি চালু আছে! যেকোনো গেমিং ইউটিলিটি, ভিপিএন ও গিফট কার্ড কিনুন বিকাশ, নগদ ও রকেটের মাধ্যমে • Instant License Key Delivery • 100% Verified Official Software & Tools • &nbsp;&nbsp;&nbsp;&nbsp;
+                        আমাদের ওয়েবসাইটে ২৪ ঘণ্টা অটোমেটিক ডেলিভারি চালু আছে! যেকোনো গেমিং ইউটিলিটি, ভিপিএন ও গিফট কার্ড কিনুন বিকাশ, নগদ ও রকেটের মাধ্যমে • Instant License Key Delivery • 100% Verified Official Software & Tools •
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Slide-out Navigation Drawer -->
+    <div id="nav-drawer" class="fixed inset-0 z-50 hidden">
+        <div onclick="toggleDrawer()" class="absolute inset-0 bg-black/70 backdrop-blur-xs"></div>
+        <div class="relative ml-auto w-72 max-w-[82vw] h-full bg-[#0b1220] border-l border-slate-800 p-5 flex flex-col justify-between">
+            <div>
+                <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+                    <span class="font-gaming font-extrabold text-xl text-white">NEXUS <span class="text-nexus-emerald">MENU</span></span>
+                    <button onclick="toggleDrawer()" class="w-8 h-8 rounded-lg bg-slate-900 text-slate-400 hover:text-white flex items-center justify-center">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <nav class="mt-5 space-y-2 text-sm font-semibold">
+                    <button onclick="filterCategory('ALL'); toggleDrawer();" class="w-full text-left px-3.5 py-2.5 rounded-xl bg-nexus-emerald/10 text-nexus-emerald flex items-center gap-3">
+                        <i class="fa-solid fa-store w-4"></i> All Store Products
+                    </button>
+                    <button onclick="scrollToSection('live-sales-section'); toggleDrawer();" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-800/70 text-slate-300 flex items-center gap-3 transition">
+                        <i class="fa-solid fa-chart-line w-4 text-purple-400"></i> Live Sales & Top Buyers
+                    </button>
+                    <button onclick="openOrdersModal(); toggleDrawer();" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-800/70 text-slate-300 flex items-center gap-3 transition">
+                        <i class="fa-solid fa-key w-4 text-amber-400"></i> My Purchased Keys
+                    </button>
+                    <button onclick="openWarrantyModal(); toggleDrawer();" class="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-slate-800/70 text-slate-300 flex items-center gap-3 transition">
+                        <i class="fa-solid fa-shield-check w-4 text-emerald-400"></i> Warranty & Refund Policy
+                    </button>
+                </nav>
+            </div>
+
+            <div class="pt-4 border-t border-slate-800">
+                <button id="drawer-auth-action" onclick="toggleDrawer(); openAuthModal();" class="w-full py-3 rounded-xl bg-nexus-emerald text-black font-extrabold text-xs uppercase tracking-wider">
+                    Sign In / Create Account
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================================================
+         MAIN CONTENT CONTAINER
+    ====================================================================== -->
+    <main class="flex-1 max-w-5xl w-full mx-auto px-4 pt-3 pb-16 space-y-6">
+
+        <!-- 4. HERO CAROUSEL BANNER -->
+        <section class="relative rounded-2xl overflow-hidden border border-slate-800/90 shadow-xl bg-[#0b1220]">
+            <div id="hero-slides" class="relative h-44 sm:h-56 w-full">
+                <!-- Slide 1 -->
+                <div class="hero-slide absolute inset-0 transition-opacity duration-500 opacity-100 bg-gradient-to-r from-[#071915] via-[#0b192c] to-[#1a1033] p-5 sm:p-8 flex flex-col justify-between">
+                    <div class="flex items-start justify-between gap-4">
+                        <div class="space-y-1.5 max-w-md">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-nexus-emerald/20 border border-nexus-emerald/40 text-nexus-emerald text-[10px] font-extrabold uppercase tracking-wider">
+                                <span class="w-1.5 h-1.5 rounded-full bg-nexus-emerald"></span> LIVE 24/7 STORE
+                            </span>
+                            <h2 class="font-gaming text-2xl sm:text-4xl font-extrabold text-white leading-tight">
+                                NEXUS WORLD <span class="text-nexus-emerald">আপনাকে স্বাগতম</span>
+                            </h2>
+                            <p class="text-xs sm:text-sm text-slate-300">
+                                প্রো গেমিং ইউটিলিটি, লো-পিং বুস্টার ও ডিজিটাল গিফট কার্ড এখন এক ক্লিকেই!
+                            </p>
+                        </div>
+                        <div class="hidden sm:flex w-24 h-24 rounded-2xl bg-nexus-emerald/10 border border-nexus-emerald/30 items-center justify-center text-nexus-emerald text-4xl shadow-inner">
+                            <i class="fa-solid fa-gamepad"></i>
+                        </div>
+                    </div>
+
+                    <!-- Trust Feature Pills -->
+                    <div class="grid grid-cols-4 gap-1.5 sm:gap-3 pt-2">
+                        <div class="bg-black/40 border border-slate-700/60 rounded-xl p-1.5 sm:p-2 text-center">
+                            <i class="fa-solid fa-shield-halved text-nexus-emerald text-xs sm:text-sm"></i>
+                            <p class="text-[9px] sm:text-[11px] font-bold text-white mt-0.5">100% Secure</p>
+                        </div>
+                        <div class="bg-black/40 border border-slate-700/60 rounded-xl p-1.5 sm:p-2 text-center">
+                            <i class="fa-solid fa-bolt text-amber-400 text-xs sm:text-sm"></i>
+                            <p class="text-[9px] sm:text-[11px] font-bold text-white mt-0.5">Instant Key</p>
+                        </div>
+                        <div class="bg-black/40 border border-slate-700/60 rounded-xl p-1.5 sm:p-2 text-center">
+                            <i class="fa-solid fa-headset text-sky-400 text-xs sm:text-sm"></i>
+                            <p class="text-[9px] sm:text-[11px] font-bold text-white mt-0.5">24/7 Support</p>
+                        </div>
+                        <div class="bg-black/40 border border-slate-700/60 rounded-xl p-1.5 sm:p-2 text-center">
+                            <i class="fa-solid fa-tags text-purple-400 text-xs sm:text-sm"></i>
+                            <p class="text-[9px] sm:text-[11px] font-bold text-white mt-0.5">Best Price</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="hero-slide absolute inset-0 transition-opacity duration-500 opacity-0 pointer-events-none bg-gradient-to-r from-[#190c2e] via-[#0d1526] to-[#081d18] p-5 sm:p-8 flex flex-col justify-between">
+                    <div class="space-y-1.5 max-w-md">
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-purple-500/20 border border-purple-500/40 text-purple-300 text-[10px] font-extrabold uppercase tracking-wider">
+                            INSTANT SUPPORT DESK
+                        </span>
+                        <h2 class="font-gaming text-2xl sm:text-4xl font-extrabold text-white leading-tight">
+                            যেকোনো সমস্যা হলে <span class="text-purple-400">সাপোর্ট টিমে</span> যোগাযোগ করুন
+                        </h2>
+                        <p class="text-xs sm:text-sm text-slate-300">
+                            অর্ডার বা অ্যাক্টিভেশন সংক্রান্ত যেকোনো সহায়তার জন্য সরাসরি টেলিগ্রাম সাপোর্টে মেসেজ দিন।
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-2.5">
+                        <button onclick="toggleSupportChat()" class="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs uppercase tracking-wider transition">
+                            <i class="fa-brands fa-telegram mr-1"></i> Contact Support
+                        </button>
+                        <button onclick="filterCategory('GIFT CARDS')" class="px-4 py-2 rounded-xl bg-slate-800/90 border border-slate-700 text-slate-200 font-bold text-xs uppercase tracking-wider">
+                            Browse Gift Cards
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="hero-slide absolute inset-0 transition-opacity duration-500 opacity-0 pointer-events-none bg-gradient-to-r from-[#1f1307] via-[#0b1220] to-[#08201a] p-5 sm:p-8 flex flex-col justify-between">
+                    <div class="space-y-1.5 max-w-md">
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 text-[10px] font-extrabold uppercase tracking-wider">
+                            EASY PAYMENT GATEWAY
+                        </span>
+                        <h2 class="font-gaming text-2xl sm:text-4xl font-extrabold text-white leading-tight">
+                            কিভাবে <span class="text-amber-400">অর্ডার করবেন</span> দেখে নিন
+                        </h2>
+                        <p class="text-xs sm:text-sm text-slate-300">
+                            পছন্দের প্যাকেজ সিলেক্ট করুন → bKash / Nagad এ পেমেন্ট করুন → সাথে সাথে ডিজিটাল কোড বুঝে নিন!
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-2 text-[11px] font-bold text-emerald-400">
+                        <span>① Select Tier</span>
+                        <span>→</span>
+                        <span>② Instant Pay</span>
+                        <span>→</span>
+                        <span>③ Claim Digital Key</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carousel Dots -->
+            <div class="absolute bottom-2.5 right-4 flex items-center gap-1.5">
+                <button onclick="goToSlide(0)" class="hero-dot w-5 h-1.5 rounded-full bg-nexus-emerald transition-all"></button>
+                <button onclick="goToSlide(1)" class="hero-dot w-2 h-1.5 rounded-full bg-slate-600 transition-all"></button>
+                <button onclick="goToSlide(2)" class="hero-dot w-2 h-1.5 rounded-full bg-slate-600 transition-all"></button>
+            </div>
+        </section>
+
+        <!-- 5. CATEGORY FILTER PILLS & SEARCH -->
+        <section class="space-y-3">
+            <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1" id="category-pills">
+                <button onclick="filterCategory('ALL')" data-cat="ALL" class="cat-pill shrink-0 px-4 py-2 rounded-full text-xs font-extrabold tracking-wider uppercase bg-nexus-emerald text-black shadow-[0_0_15px_rgba(0,230,118,0.35)] transition">
+                    ALL PRODUCTS
+                </button>
+                <button onclick="filterCategory('PRO UTILITIES')" data-cat="PRO UTILITIES" class="cat-pill shrink-0 px-4 py-2 rounded-full text-xs font-extrabold tracking-wider uppercase bg-[#0b1220] text-slate-300 border border-slate-800 hover:border-slate-600 transition">
+                    PRO UTILITIES
+                </button>
+                <button onclick="filterCategory('PC TOOLS')" data-cat="PC TOOLS" class="cat-pill shrink-0 px-4 py-2 rounded-full text-xs font-extrabold tracking-wider uppercase bg-[#0b1220] text-slate-300 border border-slate-800 hover:border-slate-600 transition">
+                    PC TOOLS
+                </button>
+                <button onclick="filterCategory('IOS & MOBILE')" data-cat="IOS & MOBILE" class="cat-pill shrink-0 px-4 py-2 rounded-full text-xs font-extrabold tracking-wider uppercase bg-[#0b1220] text-slate-300 border border-slate-800 hover:border-slate-600 transition">
+                    IOS & MOBILE
+                </button>
+                <button onclick="filterCategory('GIFT CARDS')" data-cat="GIFT CARDS" class="cat-pill shrink-0 px-4 py-2 rounded-full text-xs font-extrabold tracking-wider uppercase bg-[#0b1220] text-slate-300 border border-slate-800 hover:border-slate-600 transition">
+                    GIFT CARDS
+                </button>
+            </div>
+        </section>
+
+        <!-- 6. 2-COLUMN PRODUCT GRID -->
+        <section>
+            <div id="product-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+                <!-- Products dynamically injected via JS -->
+            </div>
+        </section>
+
+        <!-- 9. LIVE STORE ACTIVITY & VERIFIED CLIENT REVIEWS -->
+        <section id="live-sales-section" class="pt-4 space-y-4">
+            <div class="bg-[#0b1220] border border-slate-800/90 rounded-3xl p-5 space-y-4">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-nexus-emerald animate-pulse"></span>
+                        <span class="text-[11px] font-extrabold tracking-widest text-nexus-emerald uppercase">
+                            LIVE STORE ACTIVITY & LEADERBOARD
+                        </span>
+                    </div>
+                </div>
+
+                <div>
+                    <h2 class="font-gaming text-2xl sm:text-3xl font-extrabold text-white tracking-wide">
+                        LATEST SALES TICKER <span class="text-nexus-emerald">& TOP BUYERS</span>
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-1">
+                        Real-time feed of recent customer orders, instant key issuances, and community top buyers across NEXUS WORLD.
+                    </p>
+                </div>
+
+                <!-- Interactive Switch Tabs: LIVE SALES vs TOP BUYERS -->
+                <div class="grid grid-cols-2 gap-2.5 bg-[#060b14] p-1.5 rounded-2xl border border-slate-800">
+                    <button id="tab-live-sales" onclick="switchActivityTab('sales')" class="py-2.5 px-3 rounded-xl bg-nexus-emerald text-black font-extrabold text-xs tracking-wider uppercase flex items-center justify-center gap-1.5 shadow transition">
+                        <i class="fa-solid fa-bolt"></i> LIVE SALES (<span id="live-sales-count">6</span>)
+                    </button>
+                    <button id="tab-top-buyers" onclick="switchActivityTab('buyers')" class="py-2.5 px-3 rounded-xl text-slate-400 hover:text-white font-extrabold text-xs tracking-wider uppercase flex items-center justify-center gap-1.5 transition">
+                        <i class="fa-solid fa-trophy text-amber-400"></i> TOP BUYERS
+                    </button>
+                </div>
+
+                <!-- Dynamic List Container -->
+                <div id="activity-list" class="space-y-3">
+                    <!-- Populated via JS -->
+                </div>
+
+                <!-- Verified Buyers CTA Card -->
+                <div class="mt-4 rounded-2xl bg-gradient-to-br from-[#131836] via-[#0e1528] to-[#0a1c1a] border border-purple-500/30 p-4 sm:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div class="flex items-start gap-3.5">
+                        <div class="w-11 h-11 shrink-0 rounded-xl bg-purple-600/20 border border-purple-500/40 flex items-center justify-center text-purple-400 text-lg">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-gaming text-lg font-extrabold text-white uppercase">
+                                JOIN 1,200+ VERIFIED NEXUS WORLD DIGITAL BUYERS
+                            </h3>
+                            <p class="text-xs text-slate-400 mt-0.5">
+                                Get instant 24/7 key delivery with bKash, Nagad, Rocket or Card.
+                            </p>
+                        </div>
+                    </div>
+                    <button onclick="window.scrollTo({top: 260, behavior: 'smooth'})" class="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-nexus-emerald hover:bg-emerald-400 text-black font-extrabold text-xs uppercase tracking-wider transition shrink-0">
+                        BROWSE CATALOG →
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- =====================================================================
+         10. FULL DARK FOOTER
+    ====================================================================== -->
+    <footer class="bg-[#040811] border-t border-slate-800/90 pt-10 pb-24 px-4">
+        <div class="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8">
+            <!-- Brand Info -->
+            <div class="space-y-3">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-nexus-emerald/15 border border-nexus-emerald/40 flex items-center justify-center">
+                        <span class="font-gaming font-extrabold text-lg text-nexus-emerald">NW</span>
+                    </div>
+                    <span class="font-gaming font-extrabold text-xl tracking-wider text-white">NEXUS <span class="text-nexus-emerald">WORLD</span></span>
+                </div>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                    Bangladesh's trusted digital gaming storefront for pro streaming overlays, low-ping VPN boosters, server passes, and official game gift cards with 24/7 instant delivery.
+                </p>
+                <div class="flex items-center gap-2.5 pt-1">
+                    <a href="javascript:void(0)" onclick="toggleSupportChat()" class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 hover:border-nexus-emerald text-slate-300 hover:text-nexus-emerald flex items-center justify-center transition">
+                        <i class="fa-brands fa-telegram"></i>
+                    </a>
+                    <a href="javascript:void(0)" onclick="toggleSupportChat()" class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 hover:border-purple-400 text-slate-300 hover:text-purple-400 flex items-center justify-center transition">
+                        <i class="fa-brands fa-discord"></i>
+                    </a>
+                    <a href="javascript:void(0)" onclick="toggleSupportChat()" class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 hover:border-red-400 text-slate-300 hover:text-red-400 flex items-center justify-center transition">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quick Links & Policies -->
+            <div class="space-y-2.5">
+                <h4 class="font-gaming text-sm font-extrabold tracking-widest text-white uppercase">STORE POLICIES</h4>
+                <ul class="space-y-2 text-xs text-slate-400">
+                    <li>
+                        <button onclick="openWarrantyModal()" class="hover:text-nexus-emerald transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-shield-check text-nexus-emerald"></i> Digital Key Warranty Policy
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="openOrdersModal()" class="hover:text-nexus-emerald transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-receipt text-purple-400"></i> Check Purchased License Keys
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="openAuthModal()" class="hover:text-nexus-emerald transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-user-lock text-sky-400"></i> Customer Account Portal
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Support Inquiries -->
+            <div class="space-y-2.5">
+                <h4 class="font-gaming text-sm font-extrabold tracking-widest text-white uppercase">SUPPORT INQUIRIES</h4>
+                <p class="text-xs text-slate-400">Need help with activation or payment verification?</p>
+                <div class="p-3 rounded-xl bg-[#0b1220] border border-slate-800 text-xs">
+                    <span class="text-slate-400 block text-[10px] uppercase font-bold">Official Support Email</span>
+                    <span class="text-nexus-emerald font-semibold">support@nexusworld.store</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-5xl mx-auto mt-8 pt-6 border-t border-slate-800/70 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-slate-500">
+            <p>© 2026 NEXUS WORLD DIGITAL STORE. All rights reserved.</p>
+            <p>100% Legitimate Gaming Utilities & Gift Cards</p>
+        </div>
+    </footer>
+
+    <!-- =====================================================================
+         7. DETAILED PRODUCT MODAL
+    ====================================================================== -->
+    <div id="product-modal" class="fixed inset-0 z-[70] bg-black/80 backdrop-blur-sm hidden items-end sm:items-center justify-center p-0 sm:p-4">
+        <div class="relative w-full max-w-lg max-h-[92vh] bg-[#0b1220] border border-slate-700/80 rounded-t-3xl sm:rounded-3xl overflow-hidden flex flex-col shadow-2xl">
+            <!-- Scrollable Modal Body -->
+            <div class="overflow-y-auto flex-1 pb-24">
+                <!-- Top Product Banner -->
+                <div id="modal-banner" class="relative h-44 sm:h-52 w-full bg-gradient-to-br from-emerald-900 via-slate-900 to-purple-950 flex flex-col items-center justify-center p-6 text-center">
+                    <button onclick="closeProductModal()" aria-label="Close Product Details" class="absolute top-3.5 right-3.5 w-9 h-9 rounded-full bg-black/60 hover:bg-black border border-white/20 text-white flex items-center justify-center transition">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                    <div id="modal-banner-icon" class="w-16 h-16 rounded-2xl bg-black/40 border border-white/15 flex items-center justify-center text-3xl text-nexus-emerald mb-2 shadow-lg">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <span id="modal-banner-badge" class="px-3 py-0.5 rounded-full bg-black/50 border border-white/15 text-[10px] font-extrabold tracking-widest text-white uppercase">
+                        OFFICIAL LICENSE
+                    </span>
+                </div>
+
+                <!-- Product Details Content -->
+                <div class="p-5 space-y-5">
+                    <div>
+                        <span id="modal-category-tag" class="inline-block px-2.5 py-0.5 rounded-md bg-nexus-emerald/15 border border-nexus-emerald/30 text-nexus-emerald text-[10px] font-extrabold uppercase tracking-wider mb-1.5">
+                            PRO UTILITIES
+                        </span>
+                        <h2 id="modal-title" class="font-gaming text-2xl sm:text-3xl font-extrabold text-white tracking-wide">
+                            PRODUCT TITLE
+                        </h2>
+                        <p id="modal-subtitle" class="text-xs text-slate-400 mt-0.5">
+                            Product subtitle description
+                        </p>
+                    </div>
+
+                    <!-- Duration / Tier Selector Grid -->
+                    <div class="space-y-2.5">
+                        <div class="flex items-center gap-1.5 text-[11px] font-extrabold tracking-wider text-slate-300 uppercase">
+                            <i class="fa-regular fa-calendar text-nexus-emerald"></i>
+                            <span>SELECT DURATION / PACKAGE TIER</span>
+                        </div>
+                        <div id="modal-tiers-grid" class="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                            <!-- Tiers injected dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Key Product Benefits -->
+                    <div class="space-y-2">
+                        <h4 class="text-[11px] font-extrabold tracking-wider text-slate-300 uppercase">
+                            KEY PRODUCT BENEFITS:
+                        </h4>
+                        <ul id="modal-benefits" class="space-y-1.5 text-xs text-slate-300">
+                            <!-- Benefits injected dynamically -->
+                        </ul>
+
+                        <!-- Tutorial Video & Download Files Preview Buttons -->
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <button onclick="showToast('Opening official setup guide & documentation...', 'info')" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-bold text-slate-200 flex items-center gap-2 transition">
+                                <i class="fa-brands fa-youtube text-red-500"></i> Setup Guide
+                            </button>
+                            <button onclick="showToast('Client installer package verified & ready after purchase!', 'success')" class="px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-bold text-slate-200 flex items-center gap-2 transition">
+                                <i class="fa-solid fa-download text-nexus-emerald"></i> Client Files
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Delivery Info Box -->
+                    <div class="p-3.5 rounded-2xl bg-[#070d18] border border-slate-800 flex items-start gap-3">
+                        <div class="w-9 h-9 rounded-xl bg-purple-500/15 border border-purple-500/30 flex items-center justify-center text-purple-400 shrink-0 mt-0.5">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <div>
+                            <h5 id="modal-delivery-title" class="text-xs font-extrabold text-white">
+                                Instant Key Delivery
+                            </h5>
+                            <p id="modal-delivery-desc" class="text-[11px] text-slate-400 mt-0.5">
+                                Delivered automatically to your account dashboard immediately after payment confirmation.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sticky Bottom Price & Buy Instantly Bar -->
+            <div class="absolute bottom-0 inset-x-0 bg-[#080e1a]/95 backdrop-blur-md border-t border-slate-800 p-4 flex items-center justify-between gap-4">
+                <div>
+                    <span class="text-[10px] font-bold tracking-wider text-slate-400 uppercase block">TOTAL PRICE</span>
+                    <span id="modal-total-price" class="font-gaming text-2xl font-extrabold text-white">৳60</span>
+                </div>
+                <button id="modal-buy-btn" onclick="initiateBuy()" class="flex-1 max-w-[230px] py-3.5 px-5 rounded-xl bg-nexus-emerald hover:bg-emerald-400 text-black font-extrabold text-xs tracking-wider uppercase shadow-[0_0_20px_rgba(0,230,118,0.35)] flex items-center justify-center gap-2 transition active:scale-[0.98]">
+                    <i class="fa-solid fa-bolt"></i> BUY INSTANTLY
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================================================
+         8A. AUTHENTICATION MODAL ("AUTHENTICATION REQUIRED!")
+    ====================================================================== -->
+    <div id="auth-modal" class="fixed inset-0 z-[80] bg-black/85 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="relative w-full max-w-md bg-[#0b1220] border border-slate-700/80 rounded-3xl p-5 sm:p-6 shadow-2xl space-y-5">
+            <button onclick="closeAuthModal()" aria-label="Close Auth" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-900 border border-slate-700 text-slate-400 hover:text-white flex items-center justify-center">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+
+            <!-- Authentication Required Alert Box -->
+            <div class="p-3.5 rounded-2xl bg-purple-950/30 border border-purple-500/40 flex items-start gap-3">
+                <i class="fa-solid fa-lock text-purple-400 mt-1"></i>
+                <div>
+                    <h3 class="font-gaming text-base font-extrabold text-white tracking-wide uppercase">
+                        AUTHENTICATION REQUIRED!
+                    </h3>
+                    <p class="text-[11px] text-slate-300 mt-0.5 leading-relaxed">
+                        লগইন বা সাইনআপ ছাড়া অর্ডার করা যাবে না। আপনার ডিজিটাল কী সুরক্ষিত রাখতে অনুগ্রহ করে লগইন করুন।
+                    </p>
+                </div>
+            </div>
+
+            <!-- Log In / Sign Up Switch -->
+            <div class="grid grid-cols-2 gap-1.5 bg-[#060b14] p-1 rounded-xl border border-slate-800">
+                <button id="auth-tab-login" onclick="switchAuthMode('login')" class="py-2 rounded-lg bg-nexus-emerald text-black font-extrabold text-xs uppercase tracking-wider transition">
+                    LOG IN
+                </button>
+                <button id="auth-tab-signup" onclick="switchAuthMode('signup')" class="py-2 rounded-lg text-slate-400 hover:text-white font-extrabold text-xs uppercase tracking-wider transition">
+                    SIGN UP
+                </button>
+            </div>
+
+            <!-- Quick Demo Fill Banner -->
+            <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between gap-2">
+                <span class="text-[11px] text-slate-300 flex items-center gap-1.5">
+                    <i class="fa-solid fa-lightbulb text-amber-400"></i> Quick test login details:
+                </span>
+                <button type="button" onclick="fillDemoCustomer()" class="px-3 py-1.5 rounded-lg bg-sky-500/20 hover:bg-sky-500/30 border border-sky-400/40 text-sky-300 font-bold text-[11px] transition">
+                    Fill Customer Info
+                </button>
+            </div>
+
+            <!-- Form -->
+            <form onsubmit="handleAuthSubmit(event)" class="space-y-3.5">
+                <div id="auth-name-field" class="hidden">
+                    <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">GAMER TAG / FULL NAME</label>
+                    <div class="relative">
+                        <i class="fa-regular fa-user absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+                        <input id="auth-name" type="text" placeholder="e.g. TanvirGaming" class="w-full pl-9 pr-3.5 py-3 rounded-xl bg-[#060b14] border border-slate-800 focus:border-nexus-emerald focus:outline-none text-xs text-white">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">EMAIL ADDRESS</label>
+                    <div class="relative">
+                        <i class="fa-regular fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+                        <input id="auth-email" type="email" required placeholder="e.g. gamer@nexusworld.store" class="w-full pl-9 pr-3.5 py-3 rounded-xl bg-[#060b14] border border-slate-800 focus:border-nexus-emerald focus:outline-none text-xs text-white">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">PASSWORD</label>
+                    <div class="relative">
+                        <i class="fa-solid fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-xs"></i>
+                        <input id="auth-password" type="password" required placeholder="••••••••" class="w-full pl-9 pr-3.5 py-3 rounded-xl bg-[#060b14] border border-slate-800 focus:border-nexus-emerald focus:outline-none text-xs text-white">
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyan-400 to-nexus-emerald text-black font-extrabold text-xs uppercase tracking-wider shadow-lg transition active:scale-[0.98]">
+                    CONTINUE TO STORE →
+                </button>
+            </form>
+
+            <div class="relative text-center">
+                <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-slate-800"></div></div>
+                <span class="relative bg-[#0b1220] px-3 text-[10px] font-bold text-slate-500 uppercase">OR</span>
+            </div>
+
+            <button type="button" onclick="quickGoogleLogin()" class="w-full py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2.5 transition">
+                <i class="fa-brands fa-google text-amber-400"></i> CONTINUE WITH GOOGLE
+            </button>
+        </div>
+    </div>
+
+    <!-- =====================================================================
+         8B. CHECKOUT & PAYMENT GATEWAY MODAL (bKash / Nagad / Rocket / Card)
+    ====================================================================== -->
+    <div id="checkout-modal" class="fixed inset-0 z-[85] bg-black/85 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="relative w-full max-w-md bg-[#0b1220] border border-slate-700/80 rounded-3xl p-5 sm:p-6 shadow-2xl space-y-4">
+            <button onclick="closeCheckoutModal()" aria-label="Close Checkout" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-900 border border-slate-700 text-slate-400 hover:text-white flex items-center justify-center">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+
+            <div>
+                <span class="text-[10px] font-extrabold tracking-widest text-nexus-emerald uppercase">INSTANT PAYMENT GATEWAY</span>
+                <h3 class="font-gaming text-2xl font-extrabold text-white">COMPLETE YOUR ORDER</h3>
+            </div>
+
+            <!-- Order Summary Box -->
+            <div class="p-3.5 rounded-2xl bg-[#060b14] border border-slate-800 flex items-center justify-between">
+                <div>
+                    <p id="checkout-item-name" class="text-xs font-extrabold text-white">PING BOOSTER PRO (1 Day)</p>
+                    <p id="checkout-user-email" class="text-[11px] text-slate-400 mt-0.5">customer@nexusworld.store</p>
+                </div>
+                <span id="checkout-item-price" class="font-gaming text-2xl font-extrabold text-nexus-emerald">৳60</span>
+            </div>
+
+            <!-- Payment Method Selection -->
+            <div class="space-y-2">
+                <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400">SELECT PAYMENT METHOD</label>
+                <div class="grid grid-cols-2 gap-2.5" id="payment-methods">
+                    <button type="button" onclick="selectPayment('bKash', this)" class="pay-method-btn p-3 rounded-xl bg-pink-600/15 border-2 border-pink-500 text-white font-bold text-xs flex items-center justify-between">
+                        <span>bKash Instant</span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-pink-500"></span>
+                    </button>
+                    <button type="button" onclick="selectPayment('Nagad', this)" class="pay-method-btn p-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 font-bold text-xs flex items-center justify-between">
+                        <span>Nagad</span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-orange-500"></span>
+                    </button>
+                    <button type="button" onclick="selectPayment('Rocket', this)" class="pay-method-btn p-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 font-bold text-xs flex items-center justify-between">
+                        <span>Rocket</span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span>
+                    </button>
+                    <button type="button" onclick="selectPayment('Card / Binance', this)" class="pay-method-btn p-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 font-bold text-xs flex items-center justify-between">
+                        <span>Card / Crypto</span>
+                        <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sender Number / Transaction Input -->
+            <div>
+                <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">ACCOUNT NUMBER / SENDER ID</label>
+                <input id="checkout-account-input" type="text" value="01712-345678" placeholder="01XXXXXXXXX" class="w-full px-3.5 py-2.5 rounded-xl bg-[#060b14] border border-slate-800 focus:border-nexus-emerald focus:outline-none text-xs text-white font-mono">
+            </div>
+
+            <button onclick="completePayment()" class="w-full py-3.5 rounded-xl bg-nexus-emerald hover:bg-emerald-400 text-black font-extrabold text-xs uppercase tracking-wider shadow-[0_0_20px_rgba(0,230,118,0.35)] flex items-center justify-center gap-2 transition active:scale-[0.98]">
+                <i class="fa-solid fa-lock"></i> PAY & GENERATE INSTANT KEY
+            </button>
+        </div>
+    </div>
+
+    <!-- =====================================================================
+         8C. INSTANT DIGITAL KEY RECEIPT & MY ORDERS MODAL
+    ====================================================================== -->
+    <div id="orders-modal" class="fixed inset-0 z-[88] bg-black/85 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="relative w-full max-w-md bg-[#0b1220] border border-nexus-emerald/40 rounded-3xl p-5 sm:p-6 shadow-2xl space-y-4">
+            <button onclick="closeOrdersModal()" aria-label="Close Orders" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-900 border border-slate-700 text-slate-400 hover:text-white flex items-center justify-center">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+
+            <div class="flex items-center gap-2.5">
+                <div class="w-10 h-10 rounded-xl bg-nexus-emerald/15 border border-nexus-emerald/40 flex items-center justify-center text-nexus-emerald">
+                    <i class="fa-solid fa-key"></i>
+                </div>
+                <div>
+                    <h3 class="font-gaming text-xl font-extrabold text-white uppercase">YOUR DIGITAL LICENSE KEYS</h3>
+                    <p class="text-[11px] text-slate-400">Tap any key to copy immediately</p>
+                </div>
+            </div>
+
+            <div id="orders-list" class="max-h-72 overflow-y-auto space-y-2.5 pr-1">
+                <!-- Purchased keys injected here -->
+            </div>
+
+            <button onclick="closeOrdersModal()" class="w-full py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-xs font-bold uppercase tracking-wider text-slate-200">
+                DONE
+            </button>
+        </div>
+    </div>
+
+    <!-- =====================================================================
+         WARRANTY POLICY MODAL
+    ====================================================================== -->
+    <div id="warranty-modal" class="fixed inset-0 z-[88] bg-black/85 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="relative w-full max-w-md bg-[#0b1220] border border-slate-700 rounded-3xl p-6 space-y-4">
+            <button onclick="closeWarrantyModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-900 text-slate-400 hover:text-white flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="font-gaming text-2xl font-extrabold text-white">100% VERIFIED KEY WARRANTY</h3>
+            <ul class="space-y-2 text-xs text-slate-300 leading-relaxed">
+                <li>• Every license key and gift card sold on NEXUS WORLD is sourced directly from authorized publishers.</li>
+                <li>• Instant replacement guarantee within 15 minutes if any key fails to activate.</li>
+                <li>• 24/7 live customer support available via Telegram and Live Chat.</li>
+            </ul>
+            <button onclick="closeWarrantyModal()" class="w-full py-3 rounded-xl bg-nexus-emerald text-black font-extrabold text-xs uppercase">GOT IT</button>
+        </div>
+    </div>
+
+    <!-- =====================================================================
+         10B. FLOATING SUPPORT BUTTON & LIVE CHAT DRAWER ("সাহায্য লাগবে?")
+    ====================================================================== -->
+    <div class="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-2.5">
+        <!-- Mini Live Chat Box -->
+        <div id="support-chat-box" class="hidden w-80 max-w-[90vw] bg-[#0b1220] border border-slate-700 rounded-3xl shadow-2xl overflow-hidden">
+            <div class="bg-gradient-to-r from-sky-600 to-blue-600 p-3.5 flex items-center justify-between">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white">
+                        <i class="fa-brands fa-telegram text-lg"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-xs font-extrabold text-white">NEXUS LIVE SUPPORT</h4>
+                        <span class="text-[10px] text-sky-100 flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-300"></span> Online • Replies in 1 min
+                        </span>
+                    </div>
+                </div>
+                <button onclick="toggleSupportChat()" class="text-white/80 hover:text-white">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div id="chat-messages" class="p-3.5 h-52 overflow-y-auto space-y-2.5 text-xs bg-[#060b14]">
+                <div class="bg-slate-800/90 text-slate-200 p-2.5 rounded-2xl rounded-tl-none max-w-[85%]">
+                    আসসালামু আলাইকুম! 👋 NEXUS WORLD সাপোর্টে স্বাগতম। কিভাবে সাহায্য করতে পারি?
+                </div>
+            </div>
+
+            <form onsubmit="sendSupportMessage(event)" class="p-2.5 bg-[#0b1220] border-t border-slate-800 flex items-center gap-2">
+                <input id="chat-input" type="text" placeholder="Type your question..." class="flex-1 px-3 py-2 rounded-xl bg-[#060b14] border border-slate-800 text-xs text-white focus:outline-none focus:border-sky-400">
+                <button type="submit" class="w-9 h-9 rounded-xl bg-sky-500 hover:bg-sky-400 text-white flex items-center justify-center transition">
+                    <i class="fa-solid fa-paper-plane text-xs"></i>
+                </button>
+            </form>
+        </div>
+
+        <!-- Floating Pill + Circle Action Button -->
+        <div class="flex items-center gap-2">
+            <button onclick="toggleSupportChat()" class="px-3.5 py-2 rounded-full bg-[#0b1220]/95 border border-slate-700/90 shadow-lg text-xs font-bold text-white flex items-center gap-2 hover:border-nexus-emerald transition animate-float">
+                <span class="w-2 h-2 rounded-full bg-nexus-emerald"></span>
+                <span>সাহায্য লাগবে?</span>
+            </button>
+            <button onclick="toggleSupportChat()" aria-label="Open Live Support" class="w-12 h-12 rounded-full bg-gradient-to-tr from-sky-500 to-blue-500 hover:from-sky-400 hover:to-blue-400 text-white shadow-[0_4px_20px_rgba(14,165,233,0.5)] flex items-center justify-center text-xl transition active:scale-95">
+                <i class="fa-brands fa-telegram"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Custom Toast Notification Container -->
+    <div id="toast-container" class="fixed top-20 left-1/2 -translate-x-1/2 z-[110] pointer-events-none space-y-2 w-[90%] max-w-sm"></div>
+
+    <!-- =====================================================================
+         JAVASCRIPT APPLICATION LOGIC
+    ====================================================================== -->
+    <script>
+        // -------------------------------------------------------------------
+        // 1. SAFE, LEGITIMATE DIGITAL GAMING PRODUCTS CATALOG
+        // -------------------------------------------------------------------
+        const PRODUCTS = [
+            {
+                id: 'ping-booster-pro',
+                title: 'HYPERPING VPN PRO',
+                subtitle: 'Low-Latency Gaming Router',
+                category: 'PRO UTILITIES',
+                delivery: 'Instant Delivery',
+                deliveryType: 'instant',
+                startingPrice: 60,
+                inStock: true,
+                gradient: 'from-rose-950 via-[#151226] to-emerald-950',
+                icon: 'fa-gauge-high',
+                badgeText: 'ULTRA LOW PING',
+                benefits: [
+                    'Reduces game ping & packet loss across Asia/SG servers',
+                    'Dedicated encrypted gaming tunnels (100% Safe)',
+                    'One-click server switch for PC & Mobile'
+                ],
+                tiers: [
+                    { label: '1 Day', price: 60, stock: '9999 LEFT', available: true },
+                    { label: '7 Days', price: 300, stock: '9999 LEFT', available: true },
+                    { label: '15 Days', price: 500, stock: '9999 LEFT', available: true },
+                    { label: '30 Days', price: 700, stock: '9999 LEFT', available: true }
+                ]
+            },
+            {
+                id: 'stream-hud-overlay',
+                title: 'PRO HUD OVERLAY',
+                subtitle: 'FPS & Crosshair Studio',
+                category: 'PC TOOLS',
+                delivery: 'Instant Delivery',
+                deliveryType: 'instant',
+                startingPrice: 60,
+                inStock: true,
+                gradient: 'from-indigo-950 via-[#0f172a] to-cyan-950',
+                icon: 'fa-crosshairs',
+                badgeText: 'STREAMER EDITION',
+                benefits: [
+                    'Real-time FPS, GPU temperature & frame-time monitor',
+                    'Customizable legal screen crosshair overlay for monitors',
+                    'Zero CPU overhead with DirectX 12 support'
+                ],
+                tiers: [
+                    { label: '1 Day', price: 60, stock: '9999 LEFT', available: true },
+                    { label: '10 Days', price: 450, stock: '9999 LEFT', available: true },
+                    { label: '30 Days', price: 800, stock: '9999 LEFT', available: true }
+                ]
+            },
+            {
+                id: 'ios-game-booster',
+                title: 'IOS TURBO ENGINE',
+                subtitle: 'iOS Thermal & Frame Sync',
+                category: 'IOS & MOBILE',
+                delivery: 'Instant Delivery',
+                deliveryType: 'instant',
+                startingPrice: 20,
+                inStock: true,
+                gradient: 'from-purple-950 via-[#131129] to-fuchsia-950',
+                icon: 'fa-mobile-screen-button',
+                badgeText: 'IOS & IPADOS',
+                benefits: [
+                    'Optimizes background network bandwidth on iOS',
+                    'No Jailbreak required — 100% App Store compliant profile',
+                    'Instant QR configuration delivery'
+                ],
+                tiers: [
+                    { label: '1 Hour', price: 20, stock: '9999 LEFT', available: true },
+                    { label: '6 Hours', price: 50, stock: '9999 LEFT', available: true },
+                    { label: '24 Hours', price: 100, stock: '9999 LEFT', available: true },
+                    { label: '30 Days', price: 700, stock: '9999 LEFT', available: true }
+                ]
+            },
+            {
+                id: 'steam-wallet-bd',
+                title: 'STEAM WALLET CODE',
+                subtitle: 'Global / BD Region Top-Up',
+                category: 'GIFT CARDS',
+                delivery: 'Instant Delivery',
+                deliveryType: 'instant',
+                startingPrice: 135,
+                inStock: true,
+                gradient: 'from-sky-950 via-[#0c192c] to-blue-950',
+                icon: 'fa-brands fa-steam',
+                badgeText: 'OFFICIAL VOUCHER',
+                benefits: [
+                    'Official Steam Digital Gift Code delivered instantly',
+                    'Works on global & Bangladesh Steam accounts',
+                    'No password needed — redeem directly in Steam'
+                ],
+                tiers: [
+                    { label: '$1 Code', price: 135, stock: '420 LEFT', available: true },
+                    { label: '$5 Code', price: 650, stock: '185 LEFT', available: true },
+                    { label: '$10 Code', price: 1290, stock: '92 LEFT', available: true }
+                ]
+            },
+            {
+                id: 'exitlag-pass',
+                title: 'EXITLAG ROUTE PASS',
+                subtitle: 'Multi-Path Ping Optimizer',
+                category: 'PRO UTILITIES',
+                delivery: 'Delivered in 30M',
+                deliveryType: 'manual',
+                startingPrice: 150,
+                inStock: true,
+                gradient: 'from-emerald-950 via-[#0b1924] to-teal-950',
+                icon: 'fa-network-wired',
+                badgeText: 'OFFICIAL PARTNER',
+                benefits: [
+                    'Multi-internet connection routing for zero lag spikes',
+                    'Supports 1,000+ competitive multiplayer titles',
+                    'Prepaid code — no auto-renewal required'
+                ],
+                tiers: [
+                    { label: '3 Days', price: 150, stock: 'SOLD OUT', available: false },
+                    { label: '7 Days', price: 300, stock: '12 LEFT', available: true },
+                    { label: '15 Days', price: 500, stock: '8 LEFT', available: true },
+                    { label: '30 Days', price: 850, stock: '25 LEFT', available: true }
+                ]
+            },
+            {
+                id: 'discord-nitro-boost',
+                title: 'DISCORD NITRO GIFT',
+                subtitle: 'HD Stream & Server Boosts',
+                category: 'GIFT CARDS',
+                delivery: 'Delivered in 30M',
+                deliveryType: 'manual',
+                startingPrice: 399,
+                inStock: false,
+                gradient: 'from-violet-950 via-[#15122b] to-indigo-950',
+                icon: 'fa-brands fa-discord',
+                badgeText: '1080P 60FPS',
+                benefits: [
+                    '1080p 60fps Go Live streaming & 500MB uploads',
+                    '2 Free Server Boosts included with monthly plan',
+                    'Official redeemable Nitro gift link'
+                ],
+                tiers: [
+                    { label: '1 Month', price: 399, stock: 'SOLD OUT', available: false }
+                ]
+            },
+            {
+                id: 'pc-fps-optimizer',
+                title: 'NEXUS FPS TWEAKER',
+                subtitle: 'Windows Gaming Mode Suite',
+                category: 'PC TOOLS',
+                delivery: 'Instant Delivery',
+                deliveryType: 'instant',
+                startingPrice: 400,
+                inStock: true,
+                gradient: 'from-amber-950 via-[#17131e] to-emerald-950',
+                icon: 'fa-microchip',
+                badgeText: 'WINDOWS 10 / 11',
+                benefits: [
+                    'Disables unnecessary Windows telemetry during gaming',
+                    'Unlocks high-precision timer resolution & power plan',
+                    'One-click restore point safety built in'
+                ],
+                tiers: [
+                    { label: '30 Days', price: 400, stock: '9999 LEFT', available: true },
+                    { label: 'Lifetime', price: 1500, stock: '50 LEFT', available: true }
+                ]
+            },
+            {
+                id: 'google-play-card',
+                title: 'GOOGLE PLAY US CARD',
+                subtitle: 'Instant App & Game Credit',
+                category: 'GIFT CARDS',
+                delivery: 'Instant Delivery',
+                deliveryType: 'instant',
+                startingPrice: 270,
+                inStock: true,
+                gradient: 'from-teal-950 via-[#0d1829] to-purple-950',
+                icon: 'fa-brands fa-google-play',
+                badgeText: 'INSTANT CODE',
+                benefits: [
+                    'Official US Google Play Redeem Code',
+                    'Use for in-game passes, apps, and subscriptions',
+                    'Instant delivery right after payment check'
+                ],
+                tiers: [
+                    { label: '$2 Card', price: 270, stock: '310 LEFT', available: true },
+                    { label: '$5 Card', price: 660, stock: '140 LEFT', available: true },
+                    { label: '$10 Card', price: 1300, stock: '75 LEFT', available: true }
+                ]
+            }
+        ];
+
+        // -------------------------------------------------------------------
+        // 2. INITIAL LIVE SALES & TOP BUYERS DATA
+        // -------------------------------------------------------------------
+        let liveSales = [
+            { initials: 'SH', name: 'Shamim', product: 'HYPERPING VPN PRO (7 Days)', amount: 300, time: '2 mins ago', color: 'from-emerald-500 to-teal-600' },
+            { initials: 'S7', name: 'Shuvo738', product: 'PRO HUD OVERLAY (1 Day)', amount: 60, time: '14 mins ago', color: 'from-purple-500 to-indigo-600' },
+            { initials: 'AI', name: 'Alhaj Islam', product: 'IOS TURBO ENGINE (6 Hours)', amount: 50, time: '38 mins ago', color: 'from-sky-500 to-blue-600' },
+            { initials: 'TR', name: 'Tanvir Rahman', product: 'STEAM WALLET CODE ($5 Code)', amount: 650, time: '1 hour ago', color: 'from-amber-500 to-orange-600' },
+            { initials: 'NF', name: 'Nafis_GG', product: 'NEXUS FPS TWEAKER (30 Days)', amount: 400, time: '2 hours ago', color: 'from-pink-500 to-rose-600' },
+            { initials: 'AR', name: 'ArifHasan', product: 'GOOGLE PLAY US CARD ($2 Card)', amount: 270, time: '3 hours ago', color: 'from-cyan-500 to-emerald-600' }
+        ];
+
+        const topBuyers = [
+            { rank: '#1', initials: 'S7', name: 'Shuvo738', orders: 24, totalSpent: 8450, badge: 'DIAMOND VIP' },
+            { rank: '#2', initials: 'SH', name: 'Shamim', orders: 19, totalSpent: 6200, badge: 'PLATINUM BUYER' },
+            { rank: '#3', initials: 'TR', name: 'Tanvir Rahman', orders: 14, totalSpent: 4950, badge: 'GOLD MEMBER' },
+            { rank: '#4', initials: 'AI', name: 'Alhaj Islam', orders: 11, totalSpent: 3100, badge: 'VERIFIED PRO' }
+        ];
+
+        // -------------------------------------------------------------------
+        // 3. APPLICATION STATE
+        // -------------------------------------------------------------------
+        let currentCategory = 'ALL';
+        let selectedProduct = null;
+        let selectedTier = null;
+        let currentUser = null; // { name, email }
+        let selectedPaymentMethod = 'bKash';
+        let purchasedKeys = [];
+        let currentSlide = 0;
+
+        // -------------------------------------------------------------------
+        // 4. SPLASH PRELOADER SEQUENCE
+        // -------------------------------------------------------------------
+        window.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+            renderActivity('sales');
+            startHeroCarousel();
+
+            const bar = document.getElementById('splash-bar');
+            const percentText = document.getElementById('splash-percent');
+            const statusText = document.getElementById('splash-status');
+            const splash = document.getElementById('splash-screen');
+
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.floor(Math.random() * 14) + 8;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                }
+
+                bar.style.width = `${progress}%`;
+                percentText.textContent = `${progress}%`;
+
+                if (progress < 35) {
+                    statusText.textContent = 'CONNECTING TO NEXUS NETWORK...';
+                } else if (progress < 65) {
+                    statusText.textContent = 'SECURING GATEWAY PROTOCOLS...';
+                } else if (progress < 90) {
+                    statusText.textContent = 'LOADING DIGITAL ASSETS...';
+                } else {
+                    statusText.textContent = 'GETTING SYSTEMS READY...';
+                }
+
+                if (progress === 100) {
+                    setTimeout(() => {
+                        splash.classList.add('opacity-0', 'pointer-events-none');
+                        setTimeout(() => {
+                            splash.style.display = 'none';
+                            // Open Announcement Modal immediately after splash finishes
+                            document.getElementById('announcement-modal').classList.remove('hidden');
+                            document.getElementById('announcement-modal').classList.add('flex');
+                        }, 450);
+                    }, 300);
+                }
+            }, 130);
+        });
+
+        // -------------------------------------------------------------------
+        // 5. ANNOUNCEMENT POPUP HANDLERS
+        // -------------------------------------------------------------------
+        function closeAnnouncement() {
+            const modal = document.getElementById('announcement-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function handleViewOffer() {
+            closeAnnouncement();
+            filterCategory('GIFT CARDS');
+            showToast('Showing latest Season Offer & Gift Card deals!', 'success');
+        }
+
+        // -------------------------------------------------------------------
+        // 6. HERO CAROUSEL LOGIC
+        // -------------------------------------------------------------------
+        function goToSlide(index) {
+            const slides = document.querySelectorAll('.hero-slide');
+            const dots = document.querySelectorAll('.hero-dot');
+            currentSlide = index;
+
+            slides.forEach((slide, i) => {
+                if (i === index) {
+                    slide.classList.remove('opacity-0', 'pointer-events-none');
+                    slide.classList.add('opacity-100');
+                } else {
+                    slide.classList.add('opacity-0', 'pointer-events-none');
+                    slide.classList.remove('opacity-100');
+                }
+            });
+
+            dots.forEach((dot, i) => {
+                if (i === index) {
+                    dot.classList.remove('w-2', 'bg-slate-600');
+                    dot.classList.add('w-5', 'bg-nexus-emerald');
+                } else {
+                    dot.classList.add('w-2', 'bg-slate-600');
+                    dot.classList.remove('w-5', 'bg-nexus-emerald');
+                }
+            });
+        }
+
+        function startHeroCarousel() {
+            setInterval(() => {
+                const next = (currentSlide + 1) % 3;
+                goToSlide(next);
+            }, 4500);
+        }
+
+        // -------------------------------------------------------------------
+        // 7. CATEGORY FILTER & PRODUCT GRID RENDERING
+        // -------------------------------------------------------------------
+        function filterCategory(category) {
+            currentCategory = category;
+
+            // Update pill styles
+            document.querySelectorAll('.cat-pill').forEach(pill => {
+                if (pill.dataset.cat === category) {
+                    pill.className = 'cat-pill shrink-0 px-4 py-2 rounded-full text-xs font-extrabold tracking-wider uppercase bg-nexus-emerald text-black shadow-[0_0_15px_rgba(0,230,118,0.35)] transition';
+                } else {
+                    pill.className = 'cat-pill shrink-0 px-4 py-2 rounded-full text-xs font-extrabold tracking-wider uppercase bg-[#0b1220] text-slate-300 border border-slate-800 hover:border-slate-600 transition';
+                }
+            });
+
+            renderProducts();
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('product-grid');
+            const filtered = currentCategory === 'ALL'
+                ? PRODUCTS
+                : PRODUCTS.filter(p => p.category === currentCategory);
+
+            grid.innerHTML = filtered.map(product => {
+                const isInstant = product.deliveryType === 'instant';
+                return `
+                    <article onclick="openProductModal('${product.id}')" class="product-card cursor-pointer bg-[#0b1220] border border-slate-800/90 rounded-2xl overflow-hidden flex flex-col justify-between">
+                        <div>
+                            <!-- Top Graphic Banner -->
+                            <div class="relative h-28 sm:h-32 bg-gradient-to-br ${product.gradient} p-3 flex flex-col items-center justify-center text-center overflow-hidden">
+                                <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:12px_12px]"></div>
+                                <div class="w-11 h-11 rounded-xl bg-black/45 border border-white/15 flex items-center justify-center text-xl text-nexus-emerald shadow-md mb-1.5">
+                                    <i class="${product.icon.startsWith('fa-brands') ? product.icon : 'fa-solid ' + product.icon}"></i>
+                                </div>
+                                <span class="px-2 py-0.5 rounded bg-black/60 border border-white/10 text-[9px] font-extrabold tracking-widest text-white uppercase">
+                                    ${product.badgeText}
+                                </span>
+
+                                <!-- Delivery Status Badge -->
+                                <div class="absolute bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap px-2.5 py-0.5 rounded-full bg-black/80 border ${isInstant ? 'border-nexus-emerald/40 text-nexus-emerald' : 'border-amber-400/40 text-amber-300'} text-[9px] font-bold flex items-center gap-1">
+                                    <i class="fa-solid ${isInstant ? 'fa-bolt' : 'fa-clock'}"></i>
+                                    <span>${product.delivery}</span>
+                                </div>
+                            </div>
+
+                            <!-- Card Body -->
+                            <div class="p-3.5 pb-2">
+                                <h3 class="font-gaming text-base sm:text-lg font-extrabold text-white tracking-wide truncate">
+                                    ${product.title}
+                                </h3>
+                                <p class="text-[11px] text-slate-400 truncate mt-0.5">
+                                    ${product.subtitle}
+                                </p>
+                                <p class="text-xs font-extrabold text-nexus-emerald mt-2">
+                                    Starting at ৳${product.startingPrice}
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Action Row -->
+                        <div class="p-3.5 pt-1.5 flex items-center gap-2">
+                            <button type="button" aria-label="Info" class="w-9 h-9 shrink-0 rounded-xl bg-[#060b14] border border-slate-800 hover:border-slate-600 text-slate-400 hover:text-white flex items-center justify-center transition">
+                                <i class="fa-solid fa-circle-info text-xs"></i>
+                            </button>
+                            ${product.inStock ? `
+                                <button type="button" class="flex-1 h-9 rounded-xl bg-nexus-emerald hover:bg-emerald-400 text-black font-extrabold text-[11px] tracking-wider uppercase flex items-center justify-center gap-1 shadow-[0_0_12px_rgba(0,230,118,0.25)] transition">
+                                    <i class="fa-solid fa-bolt"></i> BUY NOW
+                                </button>
+                            ` : `
+                                <button type="button" class="flex-1 h-9 rounded-xl bg-rose-950/50 border border-rose-500/40 text-rose-400 font-extrabold text-[10px] tracking-wider uppercase flex items-center justify-center gap-1">
+                                    <i class="fa-solid fa-xmark"></i> OUT OF STOCK
+                                </button>
+                            `}
+                        </div>
+                    </article>
+                `;
+            }).join('');
+        }
+
+        // -------------------------------------------------------------------
+        // 8. DETAILED PRODUCT MODAL LOGIC
+        // -------------------------------------------------------------------
+        function openProductModal(productId) {
+            selectedProduct = PRODUCTS.find(p => p.id === productId);
+            if (!selectedProduct) return;
+
+            // Default select first available tier, or first tier if all sold out
+            selectedTier = selectedProduct.tiers.find(t => t.available) || selectedProduct.tiers[0];
+
+            // Populate Banner & Metadata
+            const banner = document.getElementById('modal-banner');
+            banner.className = `relative h-44 sm:h-52 w-full bg-gradient-to-br ${selectedProduct.gradient} flex flex-col items-center justify-center p-6 text-center`;
+
+            document.getElementById('modal-banner-icon').innerHTML = `<i class="${selectedProduct.icon.startsWith('fa-brands') ? selectedProduct.icon : 'fa-solid ' + selectedProduct.icon}"></i>`;
+            document.getElementById('modal-banner-badge').textContent = selectedProduct.badgeText;
+            document.getElementById('modal-category-tag').textContent = selectedProduct.category;
+            document.getElementById('modal-title').textContent = selectedProduct.title;
+            document.getElementById('modal-subtitle').textContent = selectedProduct.subtitle;
+
+            // Populate Benefits
+            document.getElementById('modal-benefits').innerHTML = selectedProduct.benefits.map(b => `
+                <li class="flex items-start gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-nexus-emerald mt-1.5 shrink-0"></span>
+                    <span>${b}</span>
+                </li>
+            `).join('');
+
+            // Delivery Info
+            if (selectedProduct.deliveryType === 'instant') {
+                document.getElementById('modal-delivery-title').textContent = 'Instant Key delivery';
+                document.getElementById('modal-delivery-desc').textContent = 'Delivered to your account dashboard immediately after payment confirmation.';
+            } else {
+                document.getElementById('modal-delivery-title').textContent = 'Manual Operators delivery';
+                document.getElementById('modal-delivery-desc').textContent = 'Requires active delivery within 15–30 minutes by our verified customer desk.';
+            }
+
+            renderModalTiers();
+            updateModalBottomBar();
+
+            const modal = document.getElementById('product-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeProductModal() {
+            const modal = document.getElementById('product-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function renderModalTiers() {
+            const grid = document.getElementById('modal-tiers-grid');
+            grid.innerHTML = selectedProduct.tiers.map((tier, idx) => {
+                const isSelected = selectedTier && selectedTier.label === tier.label;
+                if (!tier.available) {
+                    return `
+                        <button type="button" onclick="selectTier(${idx})" class="p-2.5 rounded-xl bg-[#070d18] border ${isSelected ? 'border-rose-500' : 'border-slate-800/80'} opacity-65 text-center transition">
+                            <span class="block text-xs font-extrabold text-slate-300">${tier.label}</span>
+                            <span class="block text-xs font-bold text-slate-400 mt-0.5">৳${tier.price}</span>
+                            <span class="block text-[9px] font-extrabold text-rose-400 uppercase mt-1">SOLD OUT</span>
+                        </button>
+                    `;
+                }
+                return `
+                    <button type="button" onclick="selectTier(${idx})" class="p-2.5 rounded-xl ${isSelected ? 'bg-nexus-emerald/15 border-2 border-nexus-emerald shadow-[0_0_15px_rgba(0,230,118,0.2)]' : 'bg-[#070d18] border border-slate-800 hover:border-slate-600'} text-center transition">
+                        <span class="block text-xs font-extrabold text-white">${tier.label}</span>
+                        <span class="block text-xs font-extrabold text-nexus-emerald mt-0.5">৳${tier.price}</span>
+                        <span class="block text-[9px] font-bold text-slate-400 uppercase mt-1">${tier.stock}</span>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function selectTier(index) {
+            selectedTier = selectedProduct.tiers[index];
+            renderModalTiers();
+            updateModalBottomBar();
+        }
+
+        function updateModalBottomBar() {
+            document.getElementById('modal-total-price').textContent = `৳${selectedTier.price}`;
+            const buyBtn = document.getElementById('modal-buy-btn');
+
+            if (!selectedTier.available) {
+                buyBtn.disabled = true;
+                buyBtn.className = 'flex-1 max-w-[230px] py-3.5 px-5 rounded-xl bg-rose-950/60 border border-rose-500/40 text-rose-400 font-extrabold text-xs tracking-wider uppercase flex items-center justify-center gap-2 cursor-not-allowed';
+                buyBtn.innerHTML = '<i class="fa-solid fa-xmark"></i> SOLD OUT';
+            } else {
+                buyBtn.disabled = false;
+                buyBtn.className = 'flex-1 max-w-[230px] py-3.5 px-5 rounded-xl bg-nexus-emerald hover:bg-emerald-400 text-black font-extrabold text-xs tracking-wider uppercase shadow-[0_0_20px_rgba(0,230,118,0.35)] flex items-center justify-center gap-2 transition active:scale-[0.98]';
+                buyBtn.innerHTML = '<i class="fa-solid fa-bolt"></i> BUY INSTANTLY';
+            }
+        }
+
+        // -------------------------------------------------------------------
+        // 9. AUTHENTICATION & CHECKOUT FLOW
+        // -------------------------------------------------------------------
+        let pendingCheckoutAfterLogin = false;
+
+        function initiateBuy() {
+            if (!selectedTier || !selectedTier.available) return;
+
+            if (!currentUser) {
+                pendingCheckoutAfterLogin = true;
+                closeProductModal();
+                openAuthModal();
+                return;
+            }
+
+            closeProductModal();
+            openCheckoutModal();
+        }
+
+        function openAuthModal() {
+            const modal = document.getElementById('auth-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeAuthModal() {
+            const modal = document.getElementById('auth-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function switchAuthMode(mode) {
+            const loginTab = document.getElementById('auth-tab-login');
+            const signupTab = document.getElementById('auth-tab-signup');
+            const nameField = document.getElementById('auth-name-field');
+
+            if (mode === 'login') {
+                loginTab.className = 'py-2 rounded-lg bg-nexus-emerald text-black font-extrabold text-xs uppercase tracking-wider transition';
+                signupTab.className = 'py-2 rounded-lg text-slate-400 hover:text-white font-extrabold text-xs uppercase tracking-wider transition';
+                nameField.classList.add('hidden');
+            } else {
+                signupTab.className = 'py-2 rounded-lg bg-nexus-emerald text-black font-extrabold text-xs uppercase tracking-wider transition';
+                loginTab.className = 'py-2 rounded-lg text-slate-400 hover:text-white font-extrabold text-xs uppercase tracking-wider transition';
+                nameField.classList.remove('hidden');
+            }
+        }
+
+        function fillDemoCustomer() {
+            document.getElementById('auth-name').value = 'NexusGamerBD';
+            document.getElementById('auth-email').value = 'customer@nexusworld.store';
+            document.getElementById('auth-password').value = 'Nexus2026';
+            showToast('Demo customer credentials filled!', 'info');
+        }
+
+        function handleAuthSubmit(e) {
+            e.preventDefault();
+            const email = document.getElementById('auth-email').value.trim();
+            const rawName = document.getElementById('auth-name').value.trim();
+            const displayName = rawName || email.split('@')[0];
+
+            completeLogin(displayName, email);
+        }
+
+        function quickGoogleLogin() {
+            completeLogin('ShuvoGamer', 'shuvo.gaming@gmail.com');
+        }
+
+        function completeLogin(name, email) {
+            currentUser = { name, email };
+            document.getElementById('header-user-label').textContent = name;
+            document.getElementById('drawer-auth-action').textContent = `Logged in as ${name}`;
+            closeAuthModal();
+            showToast(`Welcome back, ${name}!`, 'success');
+
+            if (pendingCheckoutAfterLogin && selectedProduct && selectedTier) {
+                pendingCheckoutAfterLogin = false;
+                openCheckoutModal();
+            }
+        }
+
+        // Checkout Modal Logic
+        function openCheckoutModal() {
+            document.getElementById('checkout-item-name').textContent = `${selectedProduct.title} (${selectedTier.label})`;
+            document.getElementById('checkout-user-email').textContent = currentUser.email;
+            document.getElementById('checkout-item-price').textContent = `৳${selectedTier.price}`;
+
+            const modal = document.getElementById('checkout-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeCheckoutModal() {
+            const modal = document.getElementById('checkout-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function selectPayment(method, btnEl) {
+            selectedPaymentMethod = method;
+            document.querySelectorAll('.pay-method-btn').forEach(btn => {
+                btn.className = 'pay-method-btn p-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 font-bold text-xs flex items-center justify-between';
+            });
+            btnEl.className = 'pay-method-btn p-3 rounded-xl bg-nexus-emerald/15 border-2 border-nexus-emerald text-white font-bold text-xs flex items-center justify-between';
+        }
+
+        function generateLicenseKey() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            const part = () => Array.from({ length: 4 }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+            return `NXS-${part()}-${part()}-${part()}`;
+        }
+
+        function completePayment() {
+            const licenseKey = generateLicenseKey();
+            const orderTitle = `${selectedProduct.title} (${selectedTier.label})`;
+
+            // Save to customer's purchased keys
+            purchasedKeys.unshift({
+                title: orderTitle,
+                key: licenseKey,
+                method: selectedPaymentMethod,
+                price: selectedTier.price,
+                date: 'Just now'
+            });
+
+            // Add dynamically to Live Sales Ticker!
+            const initials = currentUser.name.slice(0, 2).toUpperCase();
+            liveSales.unshift({
+                initials,
+                name: currentUser.name,
+                product: orderTitle,
+                amount: selectedTier.price,
+                time: 'Just now',
+                color: 'from-nexus-emerald to-teal-500'
+            });
+
+            renderActivity('sales');
+            closeCheckoutModal();
+            openOrdersModal();
+            showToast('Payment Verified! Instant Digital Key Generated.', 'success');
+        }
+
+        // Purchased Keys / Orders Modal
+        function openOrdersModal() {
+            const list = document.getElementById('orders-list');
+            if (purchasedKeys.length === 0) {
+                list.innerHTML = `
+                    <div class="p-6 text-center rounded-2xl bg-[#060b14] border border-slate-800">
+                        <p class="text-xs text-slate-400">No active license keys yet. Purchase any product to get instant key delivery!</p>
+                    </div>
+                `;
+            } else {
+                list.innerHTML = purchasedKeys.map(item => `
+                    <div class="p-3.5 rounded-2xl bg-[#060b14] border border-nexus-emerald/30 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-extrabold text-white">${item.title}</span>
+                            <span class="text-[10px] font-bold text-nexus-emerald">${item.date}</span>
+                        </div>
+                        <div class="flex items-center justify-between gap-2 bg-[#0b1220] px-3 py-2 rounded-xl border border-slate-800">
+                            <code class="text-xs font-mono font-bold text-amber-300 select-all">${item.key}</code>
+                            <button onclick="copyKey('${item.key}')" class="px-2.5 py-1 rounded-lg bg-nexus-emerald text-black font-extrabold text-[10px] uppercase">
+                                COPY
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            const modal = document.getElementById('orders-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeOrdersModal() {
+            const modal = document.getElementById('orders-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function copyKey(keyText) {
+            const tempInput = document.createElement('input');
+            tempInput.value = keyText;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            showToast(`Copied key: ${keyText}`, 'success');
+        }
+
+        // -------------------------------------------------------------------
+        // 10. LIVE SALES & TOP BUYERS LEADERBOARD RENDERING
+        // -------------------------------------------------------------------
+        function switchActivityTab(tab) {
+            const salesBtn = document.getElementById('tab-live-sales');
+            const buyersBtn = document.getElementById('tab-top-buyers');
+
+            if (tab === 'sales') {
+                salesBtn.className = 'py-2.5 px-3 rounded-xl bg-nexus-emerald text-black font-extrabold text-xs tracking-wider uppercase flex items-center justify-center gap-1.5 shadow transition';
+                buyersBtn.className = 'py-2.5 px-3 rounded-xl text-slate-400 hover:text-white font-extrabold text-xs tracking-wider uppercase flex items-center justify-center gap-1.5 transition';
+            } else {
+                buyersBtn.className = 'py-2.5 px-3 rounded-xl bg-nexus-emerald text-black font-extrabold text-xs tracking-wider uppercase flex items-center justify-center gap-1.5 shadow transition';
+                salesBtn.className = 'py-2.5 px-3 rounded-xl text-slate-400 hover:text-white font-extrabold text-xs tracking-wider uppercase flex items-center justify-center gap-1.5 transition';
+            }
+
+            renderActivity(tab);
+        }
+
+        function renderActivity(tab) {
+            const container = document.getElementById('activity-list');
+            document.getElementById('live-sales-count').textContent = liveSales.length;
+
+            if (tab === 'sales') {
+                container.innerHTML = liveSales.slice(0, 6).map(sale => `
+                    <div class="p-4 rounded-2xl bg-[#070d18] border border-slate-800/90 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-gradient-to-br ${sale.color} flex items-center justify-center font-gaming font-extrabold text-sm text-white shadow">
+                                    ${sale.initials}
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-1.5">
+                                        <span class="text-xs font-extrabold text-white">${sale.name}</span>
+                                        <i class="fa-solid fa-crown text-[10px] text-amber-400"></i>
+                                    </div>
+                                    <span class="text-[11px] text-slate-400 block">Verified Client</span>
+                                </div>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-lg bg-nexus-emerald/15 border border-nexus-emerald/30 text-nexus-emerald text-[10px] font-extrabold tracking-wider uppercase flex items-center gap-1">
+                                <i class="fa-solid fa-check"></i> VERIFIED
+                            </span>
+                        </div>
+
+                        <div class="p-3 rounded-xl bg-[#0b1220] border border-slate-800/80 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-extrabold text-white flex items-center gap-1.5">
+                                    <i class="fa-solid fa-box text-nexus-emerald"></i> ${sale.product}
+                                </p>
+                                <span class="text-[11px] text-slate-400 mt-0.5 block">Amount Paid:</span>
+                            </div>
+                            <span class="font-gaming text-xl font-extrabold text-nexus-emerald">৳${sale.amount}</span>
+                        </div>
+
+                        <div class="flex items-center justify-between text-[11px] text-slate-400">
+                            <span class="text-nexus-emerald font-bold flex items-center gap-1">
+                                <i class="fa-solid fa-circle-check"></i> Instant Key
+                            </span>
+                            <span>${sale.time}</span>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                container.innerHTML = topBuyers.map(buyer => `
+                    <div class="p-4 rounded-2xl bg-[#070d18] border border-slate-800/90 flex items-center justify-between gap-3">
+                        <div class="flex items-center gap-3">
+                            <span class="font-gaming font-extrabold text-lg text-amber-400 w-7">${buyer.rank}</span>
+                            <div class="w-10 h-10 rounded-full bg-purple-600/30 border border-purple-400/40 flex items-center justify-center font-gaming font-extrabold text-sm text-white">
+                                ${buyer.initials}
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-extrabold text-white">${buyer.name}</h4>
+                                <span class="text-[10px] font-bold text-purple-300 uppercase">${buyer.badge} • ${buyer.orders} Orders</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <span class="block text-[10px] text-slate-400 uppercase font-bold">Total Spent</span>
+                            <span class="font-gaming text-lg font-extrabold text-nexus-emerald">৳${buyer.totalSpent}</span>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // -------------------------------------------------------------------
+        // 11. NAVIGATION, SUPPORT DRAWER & UTILITY MODALS
+        // -------------------------------------------------------------------
+        function toggleDrawer() {
+            const drawer = document.getElementById('nav-drawer');
+            drawer.classList.toggle('hidden');
+        }
+
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function resetView(e) {
+            e.preventDefault();
+            filterCategory('ALL');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function openWarrantyModal() {
+            const modal = document.getElementById('warranty-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeWarrantyModal() {
+            const modal = document.getElementById('warranty-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function toggleSupportChat() {
+            document.getElementById('support-chat-box').classList.toggle('hidden');
+        }
+
+        function sendSupportMessage(e) {
+            e.preventDefault();
+            const input = document.getElementById('chat-input');
+            const msg = input.value.trim();
+            if (!msg) return;
+
+            const chatBox = document.getElementById('chat-messages');
+            chatBox.innerHTML += `
+                <div class="bg-nexus-emerald text-black font-semibold p-2.5 rounded-2xl rounded-tr-none max-w-[85%] ml-auto">
+                    ${msg}
+                </div>
+            `;
+            input.value = '';
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            setTimeout(() => {
+                chatBox.innerHTML += `
+                    <div class="bg-slate-800/90 text-slate-200 p-2.5 rounded-2xl rounded-tl-none max-w-[85%]">
+                        ধন্যবাদ! আমাদের সাপোর্ট এজেন্ট আপনার মেসেজটি পেয়েছে। যেকোনো অর্ডার ডেলিভারির জন্য আপনার অর্ডার আইডি শেয়ার করুন।
+                    </div>
+                `;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 700);
+        }
+
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            const borderColor = type === 'success' ? 'border-nexus-emerald text-nexus-emerald' : 'border-sky-400 text-sky-300';
+
+            toast.className = `px-4 py-3 rounded-2xl bg-[#0b1220]/95 backdrop-blur-md border ${borderColor} shadow-2xl text-xs font-bold flex items-center gap-2.5 transition-all duration-300`;
+            toast.innerHTML = `
+                <i class="fa-solid ${type === 'success' ? 'fa-circle-check' : 'fa-circle-info'}"></i>
+                <span class="text-white">${message}</span>
+            `;
+
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.add('opacity-0', '-translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 2800);
+        }
+    </script>
+</body>
+</html>
